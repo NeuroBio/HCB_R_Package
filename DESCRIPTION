@@ -1,0 +1,14 @@
+Package: HBC
+Title: Human Cultural Boundaries
+Version: 0.0.0
+Authors@R: 
+    person(given = "Cristina",
+           family = "Robinson",
+           role = c("aut", "cre"),
+           email = "cristina.m.robinson@vanderbilt.edu")
+Description: Creates seed populations with phoneme inventories that can grow, migrate, and create offshoot populations.  Phoneme inventories mutate when populations establish a new territory.
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1.9000
+Imports: mc2d, randomcoloR, uuid, numbers, philentropy, ade4
