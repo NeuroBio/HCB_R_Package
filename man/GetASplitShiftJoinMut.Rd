@@ -14,7 +14,7 @@ GetASplitShiftJoinMut(phonemes, phonemeRelatedness, unusable = NULL,
 
 \item{unusable}{Phonemes that cannot be used to obtain the correct type of mutation.}
 
-\item{type}{Which kind of mutation to find, Split, Join, or Shift.}
+\item{type}{Which kind of mutation to create: Split, Join, or Shift.}
 }
 \description{
 Recursively calls itself until a phoneme is found that can be used the generate the mutation type of interest.  Returns Null if no phoneme can mutate appropriately.

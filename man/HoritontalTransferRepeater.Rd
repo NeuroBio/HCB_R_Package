@@ -2,7 +2,7 @@
 % Please edit documentation in R/Source_Horizontal.R
 \name{HoritontalTransferRepeater}
 \alias{HoritontalTransferRepeater}
-\title{After migration, allow populations to exchnage phoneme information, losing or gaining syllables based on other populations in the simulation.}
+\title{Horitontal Transfer Repeater}
 \usage{
 HoritontalTransferRepeater(P, S)
 }
@@ -12,6 +12,6 @@ HoritontalTransferRepeater(P, S)
 \item{S}{A list of the data structures.}
 }
 \description{
-After migration, allow populations to exchnage phoneme information, losing or gaining syllables based on other populations in the simulation.
+A wrapper for the horizontal transfer process.  After migration, allow populations to exchnage phoneme information, losing or gaining syllables based on other populations in the simulation.  Occurs HSims number of time steps.
 }
 \keyword{Horizontal}

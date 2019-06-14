@@ -2,24 +2,24 @@
 % Please edit documentation in R/Source_Horizontal.R
 \name{AddShift}
 \alias{AddShift}
-\title{Add Shift Phoneme}
+\title{Add or Shift a Phoneme}
 \usage{
-AddShift(P, language, languages, local, phonemeRelatedness, index)
+AddShift(P, targetLanguage, languages, local, phonemeRelatedness, index)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
-\item{language}{The target language to be modified if possible.}
+\item{targetLanguage}{The target language to be modified if possible.}
 
 \item{languages}{All languages}
 
-\item{local}{Locality.}
+\item{local}{The local territories data structure.}
 
 \item{index}{The target territory whose language may change.}
 
 \item{phonemeProbab}{The probability of gaining each phoneme in the population.}
 }
 \description{
-Allows a language to either gain a new phoneme and shift and existing phoneme to match another population.
+Allows a language to either gain a new phoneme or shift an existing phoneme to better match another population's phoneme iventory.
 }
 \keyword{Horizontal}

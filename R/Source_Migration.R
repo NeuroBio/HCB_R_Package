@@ -14,28 +14,28 @@ Migration <- function(P, S){
       Final <- list(S$Populations, S$Languages, S$OccupiedVacant)
       break()
     }
-    
+
     if(P$Death){#kill off depending on popsize
       Dead <- Extinction(S$Populations, S$OccupiedVacant)
       if(length(Dead) > 0){
-        S <- updateStructuresRemove(S, Dead)
+        S <- UpdateStructuresRemove(S, Dead)
       }  
     }
     
     #allow for growth and migrate
-    S$Populations$SizeCurrent <- PopulationGrowth(P, S$Populations$SizeCurrent, which(S$OccupiedVacant))
+    S$Populations$SizeCurrent <- PopulationGrowth(P$GrwRt, S$Populations$SizeCurrent, which(S$OccupiedVacant))
     M <- GetImmigrants(P, which(S$OccupiedVacant), S$Local, S$Populations)
     if(is.null(M)){next()}#no immigrants
     
     
     #create new populations and languages
     if(length(M$SourcePop) > 0){
-      Pops <- sapply(1:length(M$newTerr),
-                     function(x) MakePopulation(P, M$SourcePop[x], S$Populations))
-      for(i in 1:length(M$newTerr)){
-        S$Populations[M$newTerr[i],] <- Pops[,i]
+      NewPopulations <- sapply(1:length(M$NewTerr),
+                     function(x) MakePopulation(P, S$Populations[M$SourcePop[x],]) )
+      for(i in 1:length(M$NewTerr)){
+        S$Populations[M$NewTerr[i],] <- NewPopulations[,i]
       }
-      S$Languages[M$newTerr,] <- t(sapply(1:length(M$newTerr), function(x)
+      S$Languages[M$NewTerr,] <- t(sapply(1:length(M$NewTerr), function(x)
         MakeLanguage(P, S$PhonemeProbab, S$PhonemeRelatedness,
                      S$Languages[M$SourcePop[x],],
                      S$Populations$SizeCurrent[M$SourcePop[x]])))
@@ -43,15 +43,15 @@ Migration <- function(P, S){
     
     #Move uprooted populations 
     if(length(M$UpRoot) > 0){
-      S <- updateStructuresMove(S, M$UnewTerr, M$UpRoot)
-      S <- updateStructuresRemove(S, M$UpRoot)
+      S <- UpdateStructuresMove(S, M$UNewTerr, M$UpRoot)
+      S <- UpdateStructuresRemove(S, M$UpRoot)
     }
     
     #update for next round
-    S$OccupiedVacant[M$newTerr] <- TRUE
+    S$OccupiedVacant[M$NewTerr] <- TRUE
     n <- n+1
     if(P$UsePopSize || P$UpRoot){
-      S$Populations$SizeCurrent[M$SourcePop] <- S$Populations$SizeCurrent[M$SourcePop]-S$Populations$SizeCurrent[M$newTerr]  
+      S$Populations$SizeCurrent[M$SourcePop] <- S$Populations$SizeCurrent[M$SourcePop]-S$Populations$SizeCurrent[M$NewTerr]  
     }
     if(P$PhoProbT == "Frequency"){
       S$PhonemeProbab <- colSums(S$Languages)/(length(which(S$OccupiedVacant)))

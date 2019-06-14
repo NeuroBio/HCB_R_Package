@@ -18,6 +18,6 @@ MakeLanguage(P, phonemeProbab, phonemeRelatedness, language, popSize)
 \item{popSize}{The number of individuals in the parent poultaion.}
 }
 \description{
-Mutates the parent's langauge to create a new language for a founder party.
+Copies and mutates the parent's langauge to create a new language for a founder party.
 }
 \keyword{Language}

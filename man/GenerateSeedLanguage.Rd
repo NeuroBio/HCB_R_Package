@@ -14,6 +14,6 @@ GenerateSeedLanguage(P, phonemeProbab, seedNum)
 \item{seedNum}{Which population seed is having it's language generated.}
 }
 \description{
-Generate Seed Language
+Creates a language for a seed population.
 }
 \keyword{Phonemes}

@@ -1,6 +1,6 @@
 #' Initialize
 #'
-#' The function wrapper that makes calls to create the population and phoneme data structures and then populatas them with initial data.
+#' The function wrapper that makes calls to create the population and phoneme data structures and then populates them with initial data.
 #' @param P A list of parameters.
 #' @keywords Wrapper
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Source_ParametersSimulation.R
 \name{HCBSimmulation}
 \alias{HCBSimmulation}
-\title{Human CUltural Boundaries Simulation}
+\title{Human Cultural Boundaries Simulation}
 \usage{
 HCBSimmulation(P)
 }
@@ -10,6 +10,6 @@ HCBSimmulation(P)
 \item{P}{A list of parameters.}
 }
 \description{
-Runs a simulation
+Runs a simulation.
 }
 \keyword{SimParam}

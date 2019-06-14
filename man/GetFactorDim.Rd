@@ -10,6 +10,6 @@ GetFactorDim(nPhonemes)
 \item{nPhonemes}{The number of Phonemes (vowels or consonants).}
 }
 \description{
-Given a number of consomants or vowel, create a datastructure that is as square as possible.
+Given a number of consonants or vowels, creates a data structure that is as square as possible.
 }
 \keyword{Directions}

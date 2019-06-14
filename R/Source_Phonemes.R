@@ -1,7 +1,7 @@
 #Phoneme code
 #' Generate Phoneme Probabilities
 #'
-#' Genetrate a vector of the probability to know each phoneme.
+#' Genetrates a vector of the probability to know each phoneme.
 #' @param P A list of parameters.
 #' @keywords Phonemes
 #' @export
@@ -73,7 +73,7 @@ GetRealPhonemeData <- function(nPhoneme, actual, vowel=FALSE){
 
 #' Generate Seed Language
 #'
-#'
+#' Creates a language for a seed population.
 #' @param P A list of parameters.
 #' @param phonemeProbab The probability of gaining each phoneme in the population.
 #' @param seedNum Which population seed is having it's language generated.

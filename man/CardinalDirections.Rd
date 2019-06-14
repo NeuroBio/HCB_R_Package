@@ -33,6 +33,6 @@ CardinalDirections(target, R, start, round, South, North, East, West, SE,
 \item{west}{Whether to get the western territory.}
 }
 \description{
-Calculates the terrritory numbers of locations around a target territory (also used for phoneme relatedness in the same way).
+Calculates the terrritory indicies of locations around a target territory (also used for phoneme relatedness in the same way).
 }
 \keyword{Directions}

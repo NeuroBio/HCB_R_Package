@@ -12,6 +12,6 @@ AddSnakeBarriers(P, firstStep)
 \item{firstStep}{The local directions created by OneStepDirections().}
 }
 \description{
-Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Snake Barriers are lines with length and spacing defined by the parameters.  The barriers jut out from the east and west walls, alternating east, west, east, west.  This creates a snaking zig-zag pattern, hence the name.
+Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Snake Barriers are lines with length and spacing defined by the parameters.  The barriers jut out from the east and west walls, alternating east, west, east, west.  This creates a snaking, zig-zag pattern, hence the name.
 }
 \keyword{Barriers}

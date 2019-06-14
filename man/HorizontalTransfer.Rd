@@ -12,7 +12,7 @@ HorizontalTransfer(P, languages, local, phonemeRelatedness, phonemeProbab,
 
 \item{languages}{All languages.}
 
-\item{local}{Locality.}
+\item{local}{The local territories data structure.}
 
 \item{phonemeRelatedness}{The phoneme relatedness list.}
 

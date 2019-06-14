@@ -5,7 +5,7 @@
 
 #' Add Snake Barriers
 #'
-#' Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Snake Barriers are lines with length and spacing defined by the parameters.  The barriers jut out from the east and west walls, alternating east, west, east, west.  This creates a snaking zig-zag pattern, hence the name.
+#' Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Snake Barriers are lines with length and spacing defined by the parameters.  The barriers jut out from the east and west walls, alternating east, west, east, west.  This creates a snaking, zig-zag pattern, hence the name.
 #' @param P A list of parameters.
 #' @param firstStep The local directions created by OneStepDirections().
 #' @keywords Barriers
@@ -34,7 +34,7 @@ AddSnakeBarriers <- function(P, firstStep){
 
 #' Add Bering Strait
 #'
-#' Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Bering Strait Barriers are designed to create structures similar to the Bering strait entering North America, Traveling to Central America, then opening up into South America.
+#' Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Bering Strait Barriers are designed to create structures similar to the Bering Strait entering North America, going through Central America, then opening up into South America.
 #' @param P A list of parameters.
 #' @param firstStep The local directions created by OneStepDirections().
 #' @keywords Barriers

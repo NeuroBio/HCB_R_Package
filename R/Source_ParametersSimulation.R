@@ -7,27 +7,27 @@
 #' @param PopulationStartIndex The position in the matrix where each seed population starts.  The number of seed populations is defined by the number of starting indicies.
 #' @param NumPopulationPhonemes The number of phonemes in each starting population.  If set to NA, this is decided by sampling from a distribution with min, mode, and made on the values from the PhonemeDistribution arguement.
 #' @param UsePopSize Whether to take into account the the population size (number of people) when making decisions about moving, immegrating, and phoneme loss/addition biases.
-#' @param IndividualsStEmSuEM Four related parameters: 1) The number of individuals a seed population stats with, 2) the minumum number of individuals required to make a founder party to settle a new territory, 3) the minumum number of individuals that must stay behind when a founder party is sent off, 4) the maximum number of individuals allowed to be in one founder party.
+#' @param IndividualsStEmSuEM Four related parameters: 1) The number of individuals a seed population starts with, 2) the minumum number of individuals required to make a founder party to settle a new territory, 3) the minumum number of individuals that must stay behind when a founder party is sent off, and 4) the maximum number of individuals allowed to be in one founder party.
 #' @param MutationRate The rate at which phonemes mutate.  E.g., if MutationRate==0.1, each phoneme in a populatiosn phoneme inventory has a 10\% chance to mutate.
-#' @param PhonemeDistribution The 1) min, 2) mode, and 3) max number of phonemes a population can have when sampling for seed population sizes and when preventing languages from gaining or losing too many phonemes. Default based on real phoneme data.
+#' @param PhonemeDistribution The 1) min, 2) mode, and 3) max number of phonemes a population can have when sampling for seed population sizes and when preventing languages from gaining or losing too many phonemes. Defaults based on real phoneme data.
 #' @param Consonants The number of possible consonants in existence.  Default based on real phoneme data.
 #' @param Vowels The number of possible vowels in existence. Default based on real phoneme data.
-#' @param MinConsonant The minumum number a Consonants that can be in a population's phoneme inventory. Default based on real phoneme data.
+#' @param MinConsonant The minumum number a consonants that can be in a population's phoneme inventory. Default based on real phoneme data.
 #' @param MinVowel The minumum number a vowels that can be in a population's phoneme inventory. Default based on real phoneme data.
-#' @param PhonemeProbabilityType The method by which phoneme probabilities are established.
-#' @param GrowthRate When an integer, the nunmber of individuals added to each population every time step.  When a fraction, the percent that a population increases each timestep.
+#' @param PhonemeProbabilityType The method by which phoneme probabilities are established.  Can be Real (uses teh real data verbatim, and requires the correct number of cosonants and phonemes), RealMimic (uses teh real data to generate a new distribution of probability similar ot the real data, can be used with any number of phonemes), Equal (all phonemes are equally liekly to be known), Frequency (based on how common phonemes are across populations in teh simulation), or Random (randomly generated).
+#' @param GrowthRate When an integer, the number of individuals added to each population every time step.  When a fraction, the percent that a population increases each timestep.
 #' @param Barriers Whether to create "snake barriers" that limit the direction of migration in the matrix.
 #' @param BarrierLength The width of snake barriers.
 #' @param BarrierBreaks The height of the space between snake barriers.
-#' @param MutationTypeChance The chance that each mutation type occurs.  1) Add, 2) Lose, 3) Split, 4) Join, 5) Shift.
+#' @param MutationTypeChance The chance that each mutation type occurs.  1) Add, 2) Lose, 3) Split, 4) Join, and 5) Shift.
 #' @param HorizontalRate The fraction of the population that attempts to modify its phoneme inventory every horizontal timestep.
 #' @param Bias Whether to randomly bias mutations towards either  gains or losses when populations are small.  Set to true based on previously published data.
 #' @param Steps The number of distance steps away from a target location that are considered "local."  Includes all 8 cardinal and ordinal directions around a target, so the local area is always a rectangle around the target location.
 #' @param HorizontalSimSteps The number of time steps to spend on horizontal transfer.
-#' @param HorizontalLocal Whether horizonta transfer occurs between local populations or globally.  Set to FALSE as a control, as global horizontal transfer should abolish local patterns.
-#' @param NumberRandomHorizontal The number of locatiosn to conpare when HorizontalLocal==FALSE.  Should be 8 when Steps==1, 24 when steps==2, 48 when Steps=3, ect.
-#' @param UpRoot Whether establish populations can move (TRUE) or they remain in place for the entire simulation (FALSE).
-#' @param Death Whether a population can die out.
+#' @param HorizontalLocal Whether horizontal transfer occurs between local populations or globally.  Set to FALSE as a control, as global horizontal transfer should abolish local patterns.
+#' @param NumberRandomHorizontal The number of locations to compare when HorizontalLocal==FALSE.  Should be 8 when Steps==1, 24 when steps==2, 48 when Steps=3, ect.
+#' @param UpRoot Whether established populations can move (TRUE) or they remain in place for the entire simulation (FALSE).
+#' @param Death Whether populations can die out.
 #' @param Bering Whether to employ barriers that mimick the Bering Strait and Americas.
 #' @param MigrationSimSteps The number of time steps to run each wave of migration.
 #' @param Waves Whether migration occurs in waves or all seed populations are added at the same time.  If TRUE, there is one wave for each seed population.
@@ -66,9 +66,9 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
 }
 
 
-#' Human CUltural Boundaries Simulation
+#' Human Cultural Boundaries Simulation
 #'
-#' Runs a simulation
+#' Runs a simulation.
 #' @param P A list of parameters.
 #' @keywords SimParam
 #' @export
@@ -78,7 +78,6 @@ HCBSimmulation <- function(P){
   #throughout the code, P=Parameters, S=data Structure
   if(!is.na(P$Seed)){ set.seed(P$Seed) }
   S <- Initialize(P) #create data structures
-  print(S$PhonemeProbab)
   if(P$Waves){
     for(i in 2:(P$nPop)) {
       S <- Migration(P, S)

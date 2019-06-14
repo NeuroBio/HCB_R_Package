@@ -1,7 +1,7 @@
 #Generate new language
 #' Make Language
 #'
-#' Mutates the parent's langauge to create a new language for a founder party.
+#' Copies and mutates the parent's langauge to create a new language for a founder party.
 #' @param P A list of parameters.
 #' @param phonemeProbab The probability of gaining each phoneme in the population.
 #' @param phonemeRelatedness The phoneme relatedness list.
@@ -14,7 +14,7 @@ MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize
   #get the number of mutations per langauge
   #round fractions based on chance to get a whole number
   #Test whether to add or lose based on number of existing phonemes
-  if(P$UsepopSize){
+  if(P$UsePopSize){
     NumMutations <- P$MutRat*(popSize-P$PopSizeInfo[2]+1)^(-1/3) 
   }else{
     NumMutations <- P$MutRat 
@@ -160,7 +160,7 @@ GetAMutation <- function(P, phonemes, phonemeProbab, phonemeRelatedness, gain){
 #' @param phonemes Phonemes that can be mutated.
 #' @param phonemeRelatedness The phoneme relatedness list.
 #' @param unusable Phonemes that cannot be used to obtain the correct type of mutation.
-#' @param type Which kind of mutation to find, Split, Join, or Shift.
+#' @param type Which kind of mutation to create: Split, Join, or Shift.
 #' @keywords Language
 #' @export
 #'

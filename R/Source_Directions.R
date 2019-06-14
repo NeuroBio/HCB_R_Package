@@ -53,8 +53,8 @@ StepDirections <- function(P){
 }
 
 #' Next Step Directions
+#' 
 #' Expands the Steps list one more step out.
-#'
 #' @param firstStep The original StepOne.
 #' @param currentStep StepOne in its current state. 
 #' @param start How much to offset numbers (for phoneme structures).
@@ -73,7 +73,7 @@ NextStepDirections <- function(firstStep, currentStep, start=0){
 
 #' One Step Directions
 #'
-#'
+#' Creates the FirstStep data structure.
 #' @param R The number of rows.
 #' @param C The number of columns.
 #' @param start How much to offset numbers (for phoneme structures).
@@ -133,7 +133,7 @@ OneStepDirections <- function(R, C, start=0, round=FALSE){
 
 #' Cardinal Directions
 #'
-#' Calculates the terrritory numbers of locations around a target territory (also used for phoneme relatedness in the same way).
+#' Calculates the terrritory indicies of locations around a target territory (also used for phoneme relatedness in the same way).
 #' @param target The territory around which to get local territoies.
 #' @param R The number of rows.
 #' @param start How much to offset numbers (for phoneme structures).
@@ -166,7 +166,7 @@ CardinalDirections <- function(target, R, start, round, South, North, East, West
 
 #' Get Factor Dimentions
 #'
-#' Given a number of consomants or vowel, create a datastructure that is as square as possible.
+#' Given a number of consonants or vowels, creates a data structure that is as square as possible.
 #' @param nPhonemes The number of Phonemes (vowels or consonants).
 #' @keywords Directions
 #' @export

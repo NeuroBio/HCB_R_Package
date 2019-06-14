@@ -10,6 +10,6 @@ GeneratePhonemeProbabilities(P)
 \item{P}{A list of parameters.}
 }
 \description{
-Genetrate a vector of the probability to know each phoneme.
+Genetrates a vector of the probability to know each phoneme.
 }
 \keyword{Phonemes}

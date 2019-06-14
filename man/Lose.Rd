@@ -2,14 +2,14 @@
 % Please edit documentation in R/Source_Horizontal.R
 \name{Lose}
 \alias{Lose}
-\title{Lose Phoneme}
+\title{Lose a Phoneme}
 \usage{
-Lose(P, language, phonemeProbab)
+Lose(P, targetLanguage, phonemeProbab)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
-\item{language}{The target language to be modified if possible.}
+\item{targetLanguage}{The target language to be modified if possible.}
 
 \item{phonemeProbab}{The probability of gaining each phoneme in the population.}
 }

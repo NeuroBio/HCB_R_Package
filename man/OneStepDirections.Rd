@@ -16,6 +16,6 @@ OneStepDirections(R, C, start = 0, round = FALSE)
 \item{round}{whether to make the spacing Round (Phonemes) or Sqaure (Territories).}
 }
 \description{
-One Step Directions
+Creates the FirstStep data structure.
 }
 \keyword{Directions}

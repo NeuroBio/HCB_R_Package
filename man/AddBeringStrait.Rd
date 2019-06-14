@@ -12,6 +12,6 @@ AddBeringStrait(P, firstStep)
 \item{firstStep}{The local directions created by OneStepDirections().}
 }
 \description{
-Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Bering Strait Barriers are designed to create structures similar to the Bering strait entering North America, Traveling to Central America, then opening up into South America.
+Removes connections at the FirstStep stage of the Local structure to create "barriers" between cells.  Bering Strait Barriers are designed to create structures similar to the Bering Strait entering North America, going through Central America, then opening up into South America.
 }
 \keyword{Barriers}

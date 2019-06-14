@@ -2,8 +2,7 @@
 % Please edit documentation in R/Source_Directions.R
 \name{NextStepDirections}
 \alias{NextStepDirections}
-\title{Next Step Directions
-Expands the Steps list one more step out.}
+\title{Next Step Directions}
 \usage{
 NextStepDirections(firstStep, currentStep, start = 0)
 }
@@ -15,7 +14,6 @@ NextStepDirections(firstStep, currentStep, start = 0)
 \item{start}{How much to offset numbers (for phoneme structures).}
 }
 \description{
-Next Step Directions
 Expands the Steps list one more step out.
 }
 \keyword{Directions}
