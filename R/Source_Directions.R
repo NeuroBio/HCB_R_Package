@@ -38,7 +38,7 @@ ShiftDirections <- function(nPhonemes, start=0){
 StepDirections <- function(P){
   StepOne <- OneStepDirections(P$R, P$C)
   if(P$Bering){
-    StepOne <- AddBerringStrait(P,StepOne)
+    StepOne <- AddBeringStrait(P,StepOne)
   }else if(P$Bar){
     StepOne <- AddSnakeBarriers(P,StepOne)
   }
