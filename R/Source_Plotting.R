@@ -42,7 +42,7 @@ GetGroups <- function(P, Data){
 #' @keywords Plotting
 #' @export
 #
-BeringStraightPlot <- function(P, Data){
+BeringStraitPlot <- function(P, Data){
   Groups <- GroupBySeed(P, Data)
   colors <- randomColor(length(Groups))
   par(mar=c(3,2.5,1,1), mgp=c(1.5,.5,0), mfrow=c(2,2), bg="grey10", fg="white")
