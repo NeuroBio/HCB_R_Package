@@ -50,7 +50,7 @@ BeringStraitPlot <- function(P, Data){
        xlab="Population Size", ylab="Number of Populations",
         col.axis="white", col.lab="white", col = "lightblue", border="lightblue4")
   PopulationPlot(P, Groups, colors)
-  PhonemePopulationFrequencyPlots(P,Data,Groups,colors,Sort=TRUE)
+  PhonemePopulationFrequencyPlots(P, Data, Groups, colors, sort=TRUE)
   }
 
 #' Group By Seed
