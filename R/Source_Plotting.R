@@ -225,16 +225,23 @@ PhonemeFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA){
 #' @export
 #
 PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sort=TRUE){
-  if(length(groups)==0){
-    groups <- GetGroups(P, Data)
-    groups <- GroupBySeed(P, Data)
+  if(is.na(groups[1])){
+    if(P$Death || P$UpRoot){
+      groups <- GroupBySeed(P, Data)
+    }else{
+      groups <- GetGroups(P, Data)
+    }
   }
-  if(length(colorSet)==0){
+
+  if(is.na(colorSet[1])){
     colorSet <- randomColor(length(groups)) 
   }
+  print(colorSet)  
   if(sort){
     Data$Languages <- Data$Languages[,order(colSums(Data$Languages), decreasing = TRUE)]
   }
+  print(Data$Languages[1:10, 1:10])
+  
   PhoPerSeed <- matrix(0,nrow=length(groups),ncol=P$nPhon)
   
   for(i in seq_along(groups)){
@@ -245,9 +252,12 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
     }
     PhoPerSeed[i,] <- colSums(Choices)
   }
+  
+  print(PhoPerSeed)
   plot(0,type = "n", xlim=c(0,P$nPhon), ylim=c(0,max(colSums(Data$Languages))),
        col.axis="white",col.lab="white", ylab="Number of populations",
        xlab="Phonemes, Ordered Common to Rare", font.lab=2, cex.lab=1, font.axis=2)
+  
   for(i in 1:P$nPhon){
     rect(i-1,0,i,rev(cumsum(PhoPerSeed[,i])), col=rev(colorSet),border = NA)
   }
@@ -397,4 +407,15 @@ GetBeringCoords <- function(){
                            seq(AsiaUpperRight, NAmericanlowerRight, by=P$R)-1))
   Horz[,2] <- Horz[,2]+.5
   return(rbind(Vert,Horz))
+}
+
+#' Save Data
+#'
+#' Saves just the language data from the simulation to .csv files.
+#' @keywords Plotting
+#' @export
+#
+SaveData <- function(Data, filename){
+  write.csv(Data$NoHorizontal$Languages, paste0(filename, "-pre.csv"))
+  write.csv(Data$Horizontal$Languages, paste0(filename, "-post.csv"))
 }

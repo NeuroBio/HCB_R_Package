@@ -6,9 +6,9 @@
 #' @param ChanceExpand The chance that a population will either move or send off a group of individuals to found a new population.
 #' @param PopulationStartIndex The position in the matrix where each seed population starts.  The number of seed populations is defined by the number of starting indicies.
 #' @param NumPopulationPhonemes The number of phonemes in each starting population.  If set to NA, this is decided by sampling from a distribution with min, mode, and made on the values from the PhonemeDistribution arguement.
-#' @param UsePopSize Whether to take into account the the population size (number of people) when making decisions about moving, immegrating, and phoneme loss/addition biases.
+#' @param UsePopSize Whether to take into account the the population size (number of people) when making decisions about moving, immegrating, the mutation rate ,and phoneme loss/addition biases.
 #' @param IndividualsStEmSuEM Four related parameters: 1) The number of individuals a seed population starts with, 2) the minumum number of individuals required to make a founder party to settle a new territory, 3) the minumum number of individuals that must stay behind when a founder party is sent off, and 4) the maximum number of individuals allowed to be in one founder party.
-#' @param MutationRate The rate at which phonemes mutate.  E.g., if MutationRate==0.1, each phoneme in a populatiosn phoneme inventory has a 10\% chance to mutate.
+#' @param MutationRate The rate at which phonemes mutate.  E.g., if MutationRate==0.1, each phoneme in a populatiosn phoneme inventory has a 10\% chance to mutate.  Note that when usePopSize==TRUE, this is better conceptualized as teh maximum mutation rate (larger populations have lower mutation rates).
 #' @param PhonemeDistribution The 1) min, 2) mode, and 3) max number of phonemes a population can have when sampling for seed population sizes and when preventing languages from gaining or losing too many phonemes. Defaults based on real phoneme data.
 #' @param Consonants The number of possible consonants in existence.  Default based on real phoneme data.
 #' @param Vowels The number of possible vowels in existence. Default based on real phoneme data.
@@ -37,7 +37,7 @@
 DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartIndex=c(1,2),
                              NumPopulationPhonemes=rep(NA, length(PopulationStartIndex)),
                              UsePopSize=TRUE,IndividualsStEmSuEM=c(1000,10,20,NA),
-                             MutationRate=15, PhonemeDitribution=c(12,24,133),
+                             MutationRate=.15, PhonemeDitribution=c(12,24,133),
                              Consonants=750, Vowels=100, MinConsonant=6, MinVowel=6,
                              PhonemeProbabilityType="RealMimic",
                              GrowthRate=5, Barriers = FALSE, BarrierLength=30, BarrierBreaks=4,

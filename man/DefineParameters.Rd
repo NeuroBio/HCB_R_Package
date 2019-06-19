@@ -7,7 +7,7 @@
 DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
   PopulationStartIndex = c(1, 2), NumPopulationPhonemes = rep(NA,
   length(PopulationStartIndex)), UsePopSize = TRUE,
-  IndividualsStEmSuEM = c(1000, 10, 20, NA), MutationRate = 15,
+  IndividualsStEmSuEM = c(1000, 10, 20, NA), MutationRate = 0.15,
   PhonemeDitribution = c(12, 24, 133), Consonants = 750,
   Vowels = 100, MinConsonant = 6, MinVowel = 6,
   PhonemeProbabilityType = "RealMimic", GrowthRate = 5,
@@ -29,11 +29,11 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
 
 \item{NumPopulationPhonemes}{The number of phonemes in each starting population.  If set to NA, this is decided by sampling from a distribution with min, mode, and made on the values from the PhonemeDistribution arguement.}
 
-\item{UsePopSize}{Whether to take into account the the population size (number of people) when making decisions about moving, immegrating, and phoneme loss/addition biases.}
+\item{UsePopSize}{Whether to take into account the the population size (number of people) when making decisions about moving, immegrating, the mutation rate ,and phoneme loss/addition biases.}
 
 \item{IndividualsStEmSuEM}{Four related parameters: 1) The number of individuals a seed population starts with, 2) the minumum number of individuals required to make a founder party to settle a new territory, 3) the minumum number of individuals that must stay behind when a founder party is sent off, and 4) the maximum number of individuals allowed to be in one founder party.}
 
-\item{MutationRate}{The rate at which phonemes mutate.  E.g., if MutationRate==0.1, each phoneme in a populatiosn phoneme inventory has a 10\% chance to mutate.}
+\item{MutationRate}{The rate at which phonemes mutate.  E.g., if MutationRate==0.1, each phoneme in a populatiosn phoneme inventory has a 10\% chance to mutate.  Note that when usePopSize==TRUE, this is better conceptualized as teh maximum mutation rate (larger populations have lower mutation rates).}
 
 \item{Consonants}{The number of possible consonants in existence.  Default based on real phoneme data.}
 
