@@ -14,17 +14,23 @@ MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize
   #get the number of mutations per langauge
   #round fractions based on chance to get a whole number
   #Test whether to add or lose based on number of existing phonemes
+  ExistingPhonemes <- which(language == 1)
+  
   if(P$UsePopSize){
-    NumMutations <- P$MutRat*(popSize-P$PopSizeInfo[2]+1)^(-1/3) 
+    #equation derrived by putting some points that seemed resonable into matlab and
+    #doing a rational fit with a ctf? toolkit.  Idk my PI did it for me because
+    #MatLab is bloatware, and I've been trying to get away from R even and into languages
+    #people use outside of acedmeia, so I can get a job, even though I was discouraged from
+    #doing so, because learning a strongly typed compiled language with limited documentation
+    #is hard when the only languages you are fluent in are R and English.
+    MutationChance <- P$MutRat*(959.6/((popSize-P$PopSizeInfo[2]+1)+1015))
+      #(popSize-P$PopSizeInfo[2]+1)^(-1/3) 
   }else{
-    NumMutations <- P$MutRat 
-  }
-  if(runif(1) < NumMutations%%1){
-    NumMutations <- NumMutations%/%1+1
-  }else{
-    NumMutations <- NumMutations%/%1
+    MutationChance <- P$MutRat 
   }
   
+  NumMutations <- sum(ifelse(runif(length(ExistingPhonemes)) < MutationChance, 1, 0))
+
   #set up gain/loss biases
   Gain <- FALSE
   if(P$Bias){
@@ -35,7 +41,6 @@ MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize
   
   #Figure out what the mutations are
   #Figure out how to bias one way or the other
-  ExistingPhonemes <- which(language == 1)
   if(NumMutations != 0){
     for(i in 1:NumMutations){
       suppressWarnings(NewMut <- GetAMutation(P, ExistingPhonemes,

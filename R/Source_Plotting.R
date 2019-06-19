@@ -227,6 +227,7 @@ PhonemeFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA){
 PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sort=TRUE){
   if(length(groups)==0){
     groups <- GetGroups(P, Data)
+    groups <- GroupBySeed(P, Data)
   }
   if(length(colorSet)==0){
     colorSet <- randomColor(length(groups)) 
