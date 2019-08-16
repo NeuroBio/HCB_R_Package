@@ -71,6 +71,8 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
 
 \item{Bering}{Whether to employ barriers that mimick the Bering Strait and Americas.}
 
+\item{BeringLength}{An integer of length 0 to 24 that degines how long the berring straight is}
+
 \item{MigrationSimSteps}{The number of time steps to run each wave of migration.}
 
 \item{HorizontalSimSteps}{The number of time steps to spend on horizontal transfer.}

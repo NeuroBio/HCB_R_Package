@@ -30,6 +30,7 @@
 #' @param Death Whether populations can die out.
 #' @param Bering Whether to employ barriers that mimick the Bering Strait and Americas.
 #' @param MigrationSimSteps The number of time steps to run each wave of migration.
+#' @param BeringLength An integer of length 0 to 24 that degines how long the berring straight is
 #' @param Waves Whether migration occurs in waves or all seed populations are added at the same time.  If TRUE, there is one wave for each seed population.
 #' @param Seed Sets a seed for reproducibility if an integer instead of NA.
 #' @keywords SimParam
@@ -46,6 +47,9 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                              UpRoot=TRUE, Death=TRUE, Bering=FALSE, BeringLength=20,
                              MigrationSimSteps=300,
                              HorizontalSimSteps=400, Waves=FALSE, Seed=NA){
+  if(BeringLength > 24 || BeringLength < 0 || BeringLength %% 1 != 0){
+    stop("BeringLength must be an integer between 0 and 24.")
+  }
   if(PhonemeProbabilityType == "Real"){
     Consonants <- 604
     Vowels <- 67
