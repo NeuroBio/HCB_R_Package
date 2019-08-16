@@ -45,15 +45,15 @@ GetGroups <- function(P, Data){
 #
 BeringStraitPlot <- function(P, Data, Colors=NA){
   Groups <- GroupBySeed(P, Data)
-  if(is.na(Colors)){
-    colors <- randomColor(length(Groups))
+  if(is.na(Colors)[1]){
+    Colors <- randomColor(length(Groups))
   }
   par(mar=c(3,2.5,1,1), mgp=c(1.5,.5,0), mfrow=c(2,2), bg="grey10", fg="white")
   hist(Data$Populations$SizeCurrent,
        xlab="Population Size", ylab="Number of Populations",
         col.axis="white", col.lab="white", col = "lightblue", border="lightblue4")
-  PopulationPlot(P, Groups, colors)
-  PhonemePopulationFrequencyPlots(P, Data, Groups, colors, sort=TRUE)
+  PopulationPlot(P, Groups, Colors)
+  PhonemePopulationFrequencyPlots(P, Data, Groups, Colors, sort=TRUE)
   }
 
 #' Group By Seed
@@ -407,6 +407,13 @@ GetBeringCoords <- function(P){
 #' @export
 #
 SaveData <- function(Data, filename){
-  write.csv(Data$NoHorizontal$Languages, paste0(filename, "-pre.csv"))
-  write.csv(Data$Horizontal$Languages, paste0(filename, "-post.csv"))
+  if("NoHorizontal" %in% names(Data)){
+    write.csv(Data$NoHorizontal$Languages, paste0(filename, "-pre.csv")) 
+  }
+  if("Horizontal" %in% names(Data)){
+    write.csv(Data$NoHorizontal$Languages, paste0(filename, "-pre.csv")) 
+  }
+  if("Alternated" %in% names(Data)){
+    write.csv(Data$Alternated$Languages, paste0(filename, "-alt.csv")) 
+  }
 }

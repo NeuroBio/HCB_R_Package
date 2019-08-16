@@ -7,6 +7,8 @@
 GetImmigrants(P, occupied, local, populations)
 }
 \arguments{
+\item{P}{A list of parameters.}
+
 \item{occupied}{The territories with a population on them.}
 
 \item{local}{The local territories data structure.}

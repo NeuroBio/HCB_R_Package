@@ -85,19 +85,61 @@ HCBSimmulation <- function(P){
   S <- Initialize(P) #create data structures
   if(P$Waves){
     for(i in 2:(P$nPop)) {
-      S <- Migration(P, S)
+      S <- Migration(P, S, P$MSims)
       S <- NextWave(P, S, i)
+      print(paste0("Wave ", i-1, " Completed"))
     }
   }
   
   #populate the matrix
-  S <- Migration(P, S)
+  S <- Migration(P, S, P$MSims)
   Pre <- S
-
+  print("Migration Completed")
+  
   #Horzontal transfer
   if(P$HSims > 0){
-    Post <- HoritontalTransferRepeater(P, S)
+    Post <- HoritontalTransferRepeater(P, S, P$HSims)
+    print("Horizontal Transfer Finished")
     return(list(NoHorizontal=Pre, Horizontal=Post))
   }
   return(list(NoHorizontal=Pre))
+}
+
+HCBAlternatorSimmulation <- function(P){
+  #throughout the code, P=Parameters, S=data Structure
+  if(!is.na(P$Seed)){ set.seed(P$Seed) }
+  S <- Initialize(P) #create data structures
+  if(P$Waves){
+    for(i in 2:(P$nPop)) {
+      S <- Alternator(P, S, P$MSims)
+      S <- NextWave(P, S, i)
+      print(paste0("Wave ", i-1, " Completed"))
+    }
+  }
+  
+  S <- Alternator(P, S, P$MSims)
+  print("Migration Completed")
+  if(P$HSims > 0){
+      Post <- HoritontalTransferRepeater(P, S, P$HSims)
+      print("Horizontal Transfer Finished")
+  }
+  return(list(Alternated=S))
+}
+
+
+#' Migration
+#'
+#' A function wrapper that alternates between migration and horizontal transfer.
+#' @param P A list of parameters.
+#' @param S A list of data structures.
+#' @param repeats how many times to repeat migration.
+#' @keywords SimParam
+#' @export
+#'
+Alternator <- function(P, S, repeats){
+  for(i in 1:repeats){
+    S <- Migration(P, S, 1)
+    S <- HoritontalTransferRepeater(P, S, 1) 
+  }
+  return(S)
 }

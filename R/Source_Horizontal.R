@@ -5,23 +5,23 @@
 #' A wrapper for the horizontal transfer process.  After migration, allow populations to exchnage phoneme information, losing or gaining syllables based on other populations in the simulation.  Occurs HSims number of time steps.
 #' @param P A list of parameters.
 #' @param S A list of the data structures.
+#' @param repeats how many times to repeat horizontal transfer
 #' @keywords Horizontal
 #' @export
 #'
-HoritontalTransferRepeater <- function(P, S){
+HoritontalTransferRepeater <- function(P, S, repeats){
   PopulationPool <- which(S$OccupiedVacant)
-    for(i in 1:P$HSims){
+    for(i in 1:repeats){
       Transfers <- PopulationPool[which(runif(length(PopulationPool))<P$HorzRate)]
-      S$Languages[Transfers,] <- t(sapply(1:length(Transfers),
-                                        function(x)
-                                        HorizontalTransfer(P, S$Languages,S$Local,
-                                                           S$PhonemeRelatedness,
-                                                          S$PhonemeProbab, Transfers[x]) ))
-    } 
-  
-    print("Horizontal Transfer Finished")
-    return(list(Populations=S$Populations, Languages=S$Languages,
-                PhonemeProbab=S$PhonemeProbab))
+      if(length(Transfers) > 0){
+        S$Languages[Transfers,] <- t(sapply(1:length(Transfers),
+                                            function(x)
+                                              HorizontalTransfer(P, S$Languages,S$Local,
+                                                                 S$PhonemeRelatedness,
+                                                                 S$PhonemeProbab, Transfers[x]) ))
+    }
+  }
+  return(S)
 }
 
 #' Horizontal Transfer

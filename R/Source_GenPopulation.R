@@ -149,7 +149,7 @@ UpdateStructuresRemove <- function(S, remove){
 #' Get Immigrants
 #'
 #' Tests which populations immigrate, removes those that did not migrate from the migraton data.  Splits the data into populations that sent off founder parties and those that moved as a single population.
-#' @param P A list of parameters.\
+#' @param P A list of parameters.
 #' @param occupied The territories with a population on them.
 #' @param local The local territories data structure.
 #' @param populations The data for all exising populations.

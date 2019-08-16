@@ -4,12 +4,14 @@
 \alias{HoritontalTransferRepeater}
 \title{Horitontal Transfer Repeater}
 \usage{
-HoritontalTransferRepeater(P, S)
+HoritontalTransferRepeater(P, S, repeats)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
 \item{S}{A list of the data structures.}
+
+\item{repeats}{how many times to repeat horizontal transfer}
 }
 \description{
 A wrapper for the horizontal transfer process.  After migration, allow populations to exchnage phoneme information, losing or gaining syllables based on other populations in the simulation.  Occurs HSims number of time steps.

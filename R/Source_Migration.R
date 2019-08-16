@@ -3,14 +3,14 @@
 #' Main simulation function.  Allows populations to migrate, split, and die.
 #' @param P A list of parameters.
 #' @param S A list of data structures.
+#' @param repeats how many times to repeat migration.
 #' @keywords SimParam
 #' @export
 #'
-Migration <- function(P, S){
+Migration <- function(P, S, repeats){
   n <- 0
   repeat{
-    if(n == P$MSims){#if there are no more places to Migrate
-      print("Migration Completed")
+    if(n == repeats){#if all runs complete
       Final <- list(S$Populations, S$Languages, S$OccupiedVacant)
       break()
     }
