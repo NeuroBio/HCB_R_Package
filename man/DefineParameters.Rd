@@ -15,8 +15,8 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
   MutationTypeChance = rep(1/5, 5), HorizontalRate = 0.1,
   Bias = TRUE, Steps = 1, HorizontalLocal = TRUE,
   NumberRandomHorizontal = 8, UpRoot = TRUE, Death = TRUE,
-  Bering = FALSE, MigrationSimSteps = 300, HorizontalSimSteps = 400,
-  Waves = FALSE, Seed = NA)
+  Bering = FALSE, BeringLength = 20, MigrationSimSteps = 300,
+  HorizontalSimSteps = 400, Waves = FALSE, Seed = NA)
 }
 \arguments{
 \item{Rows}{The number of rows in the world matrix.}

@@ -41,31 +41,53 @@ AddSnakeBarriers <- function(P, firstStep){
 #' @export
 #'
 AddBeringStrait <- function(P, firstStep){
-  AsiaLowerright <- P$R*20
-  AsiaUpperright <- AsiaLowerright-15
-  AsiaBearingCorner <- P$R*4-15
-  BeringNAmericaCorner <- P$R*3 + 5
-  NAmericanlowerright <- AsiaUpperright + P$R*18
-  NAmericanLowerEntry <- NAmericanlowerright - 5
-  NAmericanUpperright <- NAmericanLowerEntry%/%P$R*P$R+1
+  Pos <- GetBering(P)
+  #AsiaLowerright <- P$R*20
+  #AsiaUpperright <- AsiaLowerright-15
+  #AsiaBearingCorner <- P$R*4-15
+  #BeringNAmericaCorner <- P$R*3 + 1 + (24-P$BSLength)
+  #NAmericanlowerright <- AsiaUpperright + P$R*18
+  #NAmericanLowerEntry <- NAmericanlowerright - 5
+  #NAmericanUpperright <- NAmericanLowerEntry%/%P$R*P$R+1
   
-  for(i in AsiaLowerright:AsiaUpperright ){
+  for(i in Pos$AsiaLowerRight:Pos$AsiaUpperRight ){
     firstStep <- RemoveVerticalConnections(P$R, i, firstStep)
   }
-  for(i in seq(AsiaUpperright,AsiaBearingCorner, by=-P$R)-1){
+  for(i in seq(Pos$AsiaUpperRight,Pos$AsiaBeringCorner, by=-P$R)-1){
     firstStep <- RemoveHorizontalConnections(P$R, i, firstStep)
   }
-  for(i in AsiaBearingCorner:BeringNAmericaCorner ){
+  for(i in Pos$AsiaBeringCorner:Pos$BeringNAmericaCorner ){
     firstStep <- RemoveVerticalConnections(P$R, i, firstStep)
   }
-  for(i in seq(AsiaUpperright, NAmericanlowerright, by=P$R)-1){
+  for(i in seq(Pos$AsiaUpperRight, Pos$NAmericanLowerRight, by=P$R)-1){
     firstStep <- RemoveHorizontalConnections(P$R, i, firstStep)
   }
-  for(i in NAmericanLowerEntry:NAmericanUpperright ){
+  for(i in Pos$NAmericanLowerEntry:Pos$NAmericanUpperRight ){
     firstStep <- RemoveVerticalConnections(P$R, i, firstStep)
   }
   return(firstStep)
 }
+
+#' Get Bering positions
+#'
+#' returns a list of the points for the berring strait
+#' @param P A list of parameters.
+#' @keywords Barriers
+#' @export
+#'
+GetBering <- function(P){
+  AsiaLowerRight <- P$R*20
+  AsiaUpperRight <- AsiaLowerRight-15
+  AsiaBeringCorner <- P$R*4-15
+  BeringNAmericaCorner <- P$R*3 + 1 + (24-P$BSLength)
+  NAmericanLowerRight <- AsiaUpperRight + P$R*18
+  NAmericanLowerEntry <- NAmericanLowerRight - 5
+  NAmericanUpperRight <- NAmericanLowerEntry%/%P$R*P$R+1
+  return(list(AsiaLowerRight=AsiaLowerRight, AsiaUpperRight=AsiaUpperRight,
+         AsiaBeringCorner=AsiaBeringCorner, BeringNAmericaCorner=BeringNAmericaCorner,
+         NAmericanLowerRight=NAmericanLowerRight, NAmericanLowerEntry=NAmericanLowerEntry,
+         NAmericanUpperRight=NAmericanUpperRight))
+  }
 
 #' Remove Horizontal Connections
 #'

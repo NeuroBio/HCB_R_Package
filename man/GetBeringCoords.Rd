@@ -4,7 +4,7 @@
 \alias{GetBeringCoords}
 \title{Get Bering Strait Coordinates}
 \usage{
-GetBeringCoords()
+GetBeringCoords(P)
 }
 \description{
 Returns the hardcoded locations of the Bering Strait boundaries.

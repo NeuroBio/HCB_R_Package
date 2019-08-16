@@ -103,18 +103,12 @@ PopulationPlot <- function(P, seedGroups, colors){
     }
   }
   if(P$Bering){
-    AsiaLowerRight <- P$R*20
-    AsiaUpperRight <- AsiaLowerRight-15-1
-    AsiaBeringCorner <- P$R*4-15-1
-    BeringNAmericaCorner <- P$R*3 + 5
-    NAmericanlowerRight <- AsiaUpperRight + P$R*18
-    NAmericanLowerEntry <- NAmericanlowerRight - 5
-    NAmericanUpperRight <- NAmericanLowerEntry%/%P$R*P$R+1
-    
-    AddSegment(P, AsiaLowerRight, AsiaUpperRight)
-    AddSegment(P, AsiaBeringCorner, NAmericanlowerRight)
-    AddSegment(P, AsiaBeringCorner, BeringNAmericaCorner)
-    AddSegment(P, NAmericanLowerEntry, NAmericanUpperRight, top=TRUE) 
+    Pos <- GetBering(P)
+
+    AddSegment(P, Pos$AsiaLowerRight, Pos$AsiaUpperRight)
+    AddSegment(P, Pos$AsiaBeringCorner, Pos$NAmericanLowerRight)
+    AddSegment(P, Pos$AsiaBeringCorner, Pos$BeringNAmericaCorner)
+    AddSegment(P, Pos$NAmericanLowerEntry, Pos$NAmericanUpperRight, top=TRUE) 
   }
 }
 
@@ -388,23 +382,17 @@ GetXYCoords <- function(P, territories){
 #' @keywords Plotting
 #' @export
 #
-GetBeringCoords <- function(){
-  AsiaLowerRight <- P$R*20
-  AsiaUpperRight <- AsiaLowerRight-15
-  AsiaBearingCorner <- P$R*4-15
-  BerringNAmericaCorner <- P$R*3 + 5
-  NAmericanlowerRight <- AsiaUpperRight + P$R*18
-  NAmericanLowerEntry <- NAmericanlowerRight - 5
-  NAmericanUpperRight <- NAmericanLowerEntry%/%P$R*P$R+1
+GetBeringCoords <- function(P){
+  Pos <- GetBering(P)
   
   #vertical boundaries are imposed rightward/increasing X index
-  Vert<-GetXYCoords(P, c(AsiaLowerRight:AsiaUpperRight,
-                         AsiaBearingCorner:BerringNAmericaCorner,
-                         NAmericanLowerEntry:NAmericanUpperRight))
+  Vert<-GetXYCoords(P, c(Pos$AsiaLowerRight:Pos$AsiaUpperRight,
+                         Pos$AsiaBeringCorner:Pos$BeringNAmericaCorner,
+                         Pos$NAmericanLowerEntry:Pos$NAmericanUpperRight))
   Vert[,1] <- Vert[,1]+.5
   #horizontal boundaries are imposed downward/increasing Y index
-  Horz <- GetXYCoords(P, c(seq(AsiaUpperRight,AsiaBearingCorner, by=-P$R)-1,
-                           seq(AsiaUpperRight, NAmericanlowerRight, by=P$R)-1))
+  Horz <- GetXYCoords(P, c(seq(Pos$AsiaUpperRight,Pos$AsiaBeringCorner, by=-P$R)-1,
+                           seq(Pos$AsiaUpperRight, Pos$NAmericanLowerRight, by=P$R)-1))
   Horz[,2] <- Horz[,2]+.5
   return(rbind(Vert,Horz))
 }

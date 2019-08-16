@@ -43,7 +43,8 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                              GrowthRate=5, Barriers = FALSE, BarrierLength=30, BarrierBreaks=4,
                              MutationTypeChance=rep(1/5,5), HorizontalRate=.1, Bias=TRUE,
                              Steps=1, HorizontalLocal=TRUE, NumberRandomHorizontal=8,
-                             UpRoot=TRUE, Death=TRUE, Bering=FALSE, MigrationSimSteps=300,
+                             UpRoot=TRUE, Death=TRUE, Bering=FALSE, BeringLength=20,
+                             MigrationSimSteps=300,
                              HorizontalSimSteps=400, Waves=FALSE, Seed=NA){
   if(PhonemeProbabilityType == "Real"){
     Consonants <- 604
@@ -60,7 +61,7 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                  Bar = Barriers, BarLen=BarrierLength, BarBre=BarrierBreaks,
                  MutTChan=MutationTypeChance, Steps=Steps, HSims=HorizontalSimSteps,
                  UpRoot=UpRoot, Death=Death, MSims=MigrationSimSteps, Bering=Bering,
-                 Waves=Waves,
+                 Waves=Waves, BSLength=BeringLength,
                  Seed=Seed)
   return(Params)
 }
