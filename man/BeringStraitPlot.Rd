@@ -4,7 +4,7 @@
 \alias{BeringStraitPlot}
 \title{Bering Straight Plot}
 \usage{
-BeringStraitPlot(P, Data)
+BeringStraitPlot(P, Data, Colors = NA)
 }
 \arguments{
 \item{P}{A list of parameters.}

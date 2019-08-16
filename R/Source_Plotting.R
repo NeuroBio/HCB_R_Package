@@ -39,12 +39,15 @@ GetGroups <- function(P, Data){
 #' Creates a plot that shows the Bring strait boundaries.
 #' @param P A list of parameters.
 #' @param Data The Pre or Post output from an HBC simulation.
+#' @param Colors A vector of colors of length equal to the number of seed populations.
 #' @keywords Plotting
 #' @export
 #
-BeringStraitPlot <- function(P, Data){
+BeringStraitPlot <- function(P, Data, Colors=NA){
   Groups <- GroupBySeed(P, Data)
-  colors <- randomColor(length(Groups))
+  if(is.na(Colors)){
+    colors <- randomColor(length(Groups))
+  }
   par(mar=c(3,2.5,1,1), mgp=c(1.5,.5,0), mfrow=c(2,2), bg="grey10", fg="white")
   hist(Data$Populations$SizeCurrent,
        xlab="Population Size", ylab="Number of Populations",
