@@ -73,12 +73,11 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
 
 #' Human Cultural Boundaries Simulation
 #'
-#' Runs a simulation.
+#' Runs a simulation where migration and horizontal transfer are completely separate.
 #' @param P A list of parameters.
 #' @keywords SimParam
 #' @export
 #'
-
 HCBSimmulation <- function(P){
   #throughout the code, P=Parameters, S=data Structure
   if(!is.na(P$Seed)){ set.seed(P$Seed) }
@@ -105,6 +104,13 @@ HCBSimmulation <- function(P){
   return(list(NoHorizontal=Pre))
 }
 
+#' Human Cultural Boundaries Alternator Simulation
+#'
+#' Runs a simulation where each time step alternates between migration and horizontal transfer.
+#' @param P A list of parameters.
+#' @keywords SimParam
+#' @export
+#'
 HCBAlternatorSimmulation <- function(P){
   #throughout the code, P=Parameters, S=data Structure
   if(!is.na(P$Seed)){ set.seed(P$Seed) }

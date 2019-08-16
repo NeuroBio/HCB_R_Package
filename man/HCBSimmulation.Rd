@@ -10,6 +10,6 @@ HCBSimmulation(P)
 \item{P}{A list of parameters.}
 }
 \description{
-Runs a simulation.
+Runs a simulation where migration and horizontal transfer are completely separate.
 }
 \keyword{SimParam}
