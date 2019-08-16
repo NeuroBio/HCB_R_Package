@@ -3,18 +3,29 @@
 #'Population Growth 
 #'
 #' Adds new individuals to existing populations when population size is used in the simulation.
-#' @param growthRate The population growth rate parameter.
+#' @param P A list of parameters.
 #' @param populationSizes The number of people live on each territory.
 #' @param occupied The indicies of territories with people living on them.
 #' @keywords Population_Dynamics
 #' @export
 #'
-PopulationGrowth <- function(growthRate, populationSizes, occupied){
-  if(growthRate %% 1 == 0){
-    populationSizes[occupied] <- populationSizes[occupied]+growthRate
+PopulationGrowth <- function(P, populationSizes, occupied){
+  if(P$GrwMax == P$GrwMin){
+    if(P$GrwMax %% 1 == 0){
+      populationSizes[occupied] <- populationSizes[occupied]+P$GrwMax
+    }else{
+      populationSizes[occupied] <- populationSizes[occupied]*P$GrwMax
+    }
   }else{
-    populationSizes[occupied] <- populationSizes[occupied]*growthRate
+    if((P$GrwMax%%1 == 0) && (P$GrwMin%%1 == 0)){ #integer growth
+      Change <- sample(P$GrwMin:P$GrwMax, length(occupied), replace = TRUE)
+      populationSizes[occupied] <- populationSizes[occupied]+Change
+    }else{ #percentage growth
+      Change <- runif(length(occupied), max=P$GrwMax, min=P$GrwMin)
+      populationSizes[occupied] <- populationSizes[occupied]*Change
+    }
   }
+  
   return(populationSizes)
 }
 

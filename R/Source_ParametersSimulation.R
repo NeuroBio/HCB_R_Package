@@ -15,7 +15,8 @@
 #' @param MinConsonant The minumum number a consonants that can be in a population's phoneme inventory. Default based on real phoneme data.
 #' @param MinVowel The minumum number a vowels that can be in a population's phoneme inventory. Default based on real phoneme data.
 #' @param PhonemeProbabilityType The method by which phoneme probabilities are established.  Can be Real (uses teh real data verbatim, and requires the correct number of cosonants and phonemes), RealMimic (uses teh real data to generate a new distribution of probability similar ot the real data, can be used with any number of phonemes), Equal (all phonemes are equally liekly to be known), Frequency (based on how common phonemes are across populations in teh simulation), or Random (randomly generated).
-#' @param GrowthRate When an integer, the number of individuals added to each population every time step.  When a fraction, the percent that a population increases each timestep.
+#' @param GrowthMax When an integer, the max number of individuals added or lost from populations every time step.  When a fraction, the percent that population size increases or decerases each timestep.  Can be positive or negative.  Also note that is this an integer, but GrowthMin is not, this will be considered a percentage (i.e. 2 = 200\%).
+#' @param GrowthMin When an integer, the min number of individuals added or lost from each population every time step.  When a fraction, the percent that a population size increases or decreases each timestep. Can be positive or negative. Also note that is this an integer, but GrowthMax is not, this will be considered a percentage (i.e. 2 = 200\%).
 #' @param Barriers Whether to create "snake barriers" that limit the direction of migration in the matrix.
 #' @param BarrierLength The width of snake barriers.
 #' @param BarrierBreaks The height of the space between snake barriers.
@@ -31,6 +32,7 @@
 #' @param Bering Whether to employ barriers that mimick the Bering Strait and Americas.
 #' @param MigrationSimSteps The number of time steps to run each wave of migration.
 #' @param BeringLength An integer of length 0 to 24 that degines how long the berring straight is
+#' @param BasalMutationRate The rate at which phonemes evolve in stationary populations during migration.
 #' @param Waves Whether migration occurs in waves or all seed populations are added at the same time.  If TRUE, there is one wave for each seed population.
 #' @param Seed Sets a seed for reproducibility if an integer instead of NA.
 #' @keywords SimParam
@@ -41,14 +43,21 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                              MutationRate=.15, PhonemeDitribution=c(12,24,133),
                              Consonants=750, Vowels=100, MinConsonant=6, MinVowel=6,
                              PhonemeProbabilityType="RealMimic",
-                             GrowthRate=5, Barriers = FALSE, BarrierLength=30, BarrierBreaks=4,
+                             GrowthMax=5, GrowthMin=5,
+                             Barriers = FALSE, BarrierLength=30, BarrierBreaks=4,
                              MutationTypeChance=rep(1/5,5), HorizontalRate=.1, Bias=TRUE,
                              Steps=1, HorizontalLocal=TRUE, NumberRandomHorizontal=8,
                              UpRoot=TRUE, Death=TRUE, Bering=FALSE, BeringLength=20,
-                             MigrationSimSteps=300,
+                             MigrationSimSteps=300, BasalMutationRate=.01,
                              HorizontalSimSteps=400, Waves=FALSE, Seed=NA){
   if(BeringLength > 24 || BeringLength < 0 || BeringLength %% 1 != 0){
     stop("BeringLength must be an integer between 0 and 24.")
+  }
+  if(GrowthMax < GrowthMin){
+    Temp <- GrowthMax
+    GrowthMax <- GrowthMin
+    GrowthMin <- Temp
+    warning("GrowthMin was greater than GrowthMax, so the two values were switched!")
   }
   if(PhonemeProbabilityType == "Real"){
     Consonants <- 604
@@ -57,7 +66,7 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
   Params <- list(R=Rows, C=Cols, nTerr=Rows*Cols, ChExp=ChanceExpand,
                  nPop=length(PopulationStartIndex), PopStart=PopulationStartIndex,
                  NumPopPho=NumPopulationPhonemes, UsePopSize=UsePopSize,
-                 PopSizeInfo=IndividualsStEmSuEM, GrwRt=GrowthRate,
+                 PopSizeInfo=IndividualsStEmSuEM, GrwMax=GrowthMax, GrwMin=GrowthMin,
                  MutRat=MutationRate, HorzRate=HorizontalRate, AvePho=PhonemeDitribution,
                  nPhon=Consonants+Vowels, nConse=Consonants, nVowl=Vowels,
                  MinVow=MinVowel, MinCon=MinConsonant, Bias=Bias, NumHori=NumberRandomHorizontal,
@@ -65,7 +74,7 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                  Bar = Barriers, BarLen=BarrierLength, BarBre=BarrierBreaks,
                  MutTChan=MutationTypeChance, Steps=Steps, HSims=HorizontalSimSteps,
                  UpRoot=UpRoot, Death=Death, MSims=MigrationSimSteps, Bering=Bering,
-                 Waves=Waves, BSLength=BeringLength,
+                 Waves=Waves, BSLength=BeringLength, BaseMRate=BasalMutationRate,
                  Seed=Seed)
   return(Params)
 }

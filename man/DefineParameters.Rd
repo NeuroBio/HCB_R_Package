@@ -10,13 +10,14 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
   IndividualsStEmSuEM = c(1000, 10, 20, NA), MutationRate = 0.15,
   PhonemeDitribution = c(12, 24, 133), Consonants = 750,
   Vowels = 100, MinConsonant = 6, MinVowel = 6,
-  PhonemeProbabilityType = "RealMimic", GrowthRate = 5,
+  PhonemeProbabilityType = "RealMimic", GrowthMax = 5, GrowthMin = 5,
   Barriers = FALSE, BarrierLength = 30, BarrierBreaks = 4,
   MutationTypeChance = rep(1/5, 5), HorizontalRate = 0.1,
   Bias = TRUE, Steps = 1, HorizontalLocal = TRUE,
   NumberRandomHorizontal = 8, UpRoot = TRUE, Death = TRUE,
   Bering = FALSE, BeringLength = 20, MigrationSimSteps = 300,
-  HorizontalSimSteps = 400, Waves = FALSE, Seed = NA)
+  BasalMutationRate = 0.01, HorizontalSimSteps = 400, Waves = FALSE,
+  Seed = NA)
 }
 \arguments{
 \item{Rows}{The number of rows in the world matrix.}
@@ -45,7 +46,9 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
 
 \item{PhonemeProbabilityType}{The method by which phoneme probabilities are established.  Can be Real (uses teh real data verbatim, and requires the correct number of cosonants and phonemes), RealMimic (uses teh real data to generate a new distribution of probability similar ot the real data, can be used with any number of phonemes), Equal (all phonemes are equally liekly to be known), Frequency (based on how common phonemes are across populations in teh simulation), or Random (randomly generated).}
 
-\item{GrowthRate}{When an integer, the number of individuals added to each population every time step.  When a fraction, the percent that a population increases each timestep.}
+\item{GrowthMax}{When an integer, the max number of individuals added or lost from populations every time step.  When a fraction, the percent that population size increases or decerases each timestep.  Can be positive or negative.  Also note that is this an integer, but GrowthMin is not, this will be considered a percentage (i.e. 2 = 200\%).}
+
+\item{GrowthMin}{When an integer, the min number of individuals added or lost from each population every time step.  When a fraction, the percent that a population size increases or decreases each timestep. Can be positive or negative. Also note that is this an integer, but GrowthMax is not, this will be considered a percentage (i.e. 2 = 200\%).}
 
 \item{Barriers}{Whether to create "snake barriers" that limit the direction of migration in the matrix.}
 
@@ -74,6 +77,8 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
 \item{BeringLength}{An integer of length 0 to 24 that degines how long the berring straight is}
 
 \item{MigrationSimSteps}{The number of time steps to run each wave of migration.}
+
+\item{BasalMutationRate}{The rate at which phonemes evolve in stationary populations during migration.}
 
 \item{HorizontalSimSteps}{The number of time steps to spend on horizontal transfer.}
 

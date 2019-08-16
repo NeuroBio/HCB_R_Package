@@ -4,10 +4,10 @@
 \alias{PopulationGrowth}
 \title{Population Growth}
 \usage{
-PopulationGrowth(growthRate, populationSizes, occupied)
+PopulationGrowth(P, populationSizes, occupied)
 }
 \arguments{
-\item{growthRate}{The population growth rate parameter.}
+\item{P}{A list of parameters.}
 
 \item{populationSizes}{The number of people live on each territory.}
 

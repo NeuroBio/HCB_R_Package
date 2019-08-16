@@ -23,7 +23,7 @@ Migration <- function(P, S, repeats){
     }
     
     #allow for growth and migrate
-    S$Populations$SizeCurrent <- PopulationGrowth(P$GrwRt, S$Populations$SizeCurrent, which(S$OccupiedVacant))
+    S$Populations$SizeCurrent <- PopulationGrowth(P, S$Populations$SizeCurrent, which(S$OccupiedVacant))
     M <- GetImmigrants(P, which(S$OccupiedVacant), S$Local, S$Populations)
     if(is.null(M)){next()}#no immigrants
     
