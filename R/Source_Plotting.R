@@ -409,11 +409,11 @@ GetBeringCoords <- function(P){
 SaveData <- function(Data, filename){
   if("NoHorizontal" %in% names(Data)){
     write.csv(Data$NoHorizontal$Languages, paste0(filename, "-pre.csv")) 
-  }
-  if("Horizontal" %in% names(Data)){
-    write.csv(Data$NoHorizontal$Languages, paste0(filename, "-pre.csv")) 
+    write.csv(Data$Horizontal$Languages, paste0(filename, "-post.csv"))
+    write.csv(Data$NoHorizontal$Populations$SeedID, paste0(filename, "-seeds.csv"))
   }
   if("Alternated" %in% names(Data)){
-    write.csv(Data$Alternated$Languages, paste0(filename, "-alt.csv")) 
+    write.csv(Data$Alternated$Languages, paste0(filename, "-alt.csv"))
+    write.csv(Data$Alternated$Populations$SeedID, paste0(filename, "-seeds.csv"))
   }
 }
