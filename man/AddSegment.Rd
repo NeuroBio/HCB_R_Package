@@ -9,6 +9,10 @@ AddSegment(P, a, b, top = FALSE)
 \arguments{
 \item{P}{A list of parameters.}
 
+\item{a}{Start.}
+
+\item{b}{End.}
+
 \item{Data}{The Pre or Post output from an HBC simulation.}
 }
 \description{

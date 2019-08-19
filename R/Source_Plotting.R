@@ -39,22 +39,25 @@ GetGroups <- function(P, Data){
 #' Creates a plot that shows the Bring strait boundaries.
 #' @param P A list of parameters.
 #' @param Data The Pre or Post output from an HBC simulation.
-#' @param Colors A vector of colors of length equal to the number of seed populations.
+#' @param colors A vector of colors of length equal to the number of seed populations.
 #' @keywords Plotting
 #' @export
 #
-BeringStraitPlot <- function(P, Data, Colors=NA){
+BeringStraitPlot <- function(P, Data, colors=NA){
+  if(!P$Bering){
+    stop("This plot assumes that the Berring Barriers were implemented.")
+  }
   Groups <- GroupBySeed(P, Data)
-  if(is.na(Colors)[1]){
+  if(is.na(colors)[1]){
     Colors <- randomColor(length(Groups))
   }
   par(mar=c(3,2.5,1,1), mgp=c(1.5,.5,0), mfrow=c(2,2), bg="grey10", fg="white")
   hist(Data$Populations$SizeCurrent,
        xlab="Population Size", ylab="Number of Populations",
         col.axis="white", col.lab="white", col = "lightblue", border="lightblue4")
-  PopulationPlot(P, Groups, Colors)
-  PhonemePopulationFrequencyPlots(P, Data, Groups, Colors, sort=TRUE)
-  }
+  PopulationPlot(P, Data, Groups, colors)
+  PhonemePopulationFrequencyPlots(P, Data, Groups, colors, sort=TRUE)
+}
 
 #' Group By Seed
 #'
@@ -90,19 +93,31 @@ SnapshotPlot<-function(P, Data, colors){
 #'
 #'
 #' @param P A list of parameters.
-#' @param seedGroups Group structure of which territories were descended from what population seed.
-#' @param colors A vector of colors, one for each seed.
-
+#' @param groups Group structure of which territories were descended from what population seed.
+#' @param colors A vector of colors of length equal to the number of seed populations.
 #' @keywords Plotting
 #' @export
 #
-PopulationPlot <- function(P, seedGroups, colors){
+PopulationPlot <- function(P, Data, groups=NA, colors=NA){
+  if(is.na(groups)[1]){
+    if(P$Death || P$UpRoot){
+      groups <- GroupBySeed(P, Data)
+    }else{
+      groups <- GetGroups(P, Data)
+      for(i in seq_along(groups)){
+        groups[[i]] <- groups[[i]][,1]
+      }
+    }
+  }
+  if(is.na(colors)[1]){
+    colors <- randomColor(length(groups)) 
+  }
   plot(0, type="n", xlim=c(1, P$C), ylim=c(P$R,1),
        col.axis="white", font.axis=2)
-  for(i in seq_along(seedGroups)){
-    if(length(seedGroups[[i]]) > 0){
-      Modtest <- seedGroups[[i]]%%P$R
-      points(ceiling(seedGroups[[i]]/P$R), ifelse(Modtest==0,P$R,Modtest), col=colors[i], pch=19)
+  for(i in seq_along(groups)){
+    if(length(groups[[i]]) > 0){
+      Modtest <- groups[[i]]%%P$R
+      points(ceiling(groups[[i]]/P$R), ifelse(Modtest==0,P$R,Modtest), col=colors[i], pch=19)
     }
   }
   if(P$Bering){
@@ -119,11 +134,13 @@ PopulationPlot <- function(P, seedGroups, colors){
 #'
 #' Creates lines to show the Bering Straight borders.
 #' @param P A list of parameters.
+#' @param a Start.
+#' @param b End.
 #' @param Data The Pre or Post output from an HBC simulation.
 #' @keywords Plotting
 #' @export
 #
-AddSegment<- function(P,a,b, top=FALSE){
+AddSegment <- function(P, a, b, top=FALSE){
   Modtest1 <- a%%P$R
   Modtest2 <- b%%P$R
   if(top){
@@ -142,37 +159,28 @@ AddSegment<- function(P,a,b, top=FALSE){
 #' Shows the expansion of populations from the seed population.  Ony works when Uproot and Death are FALSE.
 #' @param P A list of parameters.
 #' @param Data The Pre or Post output from an HBC simulation.
+#' @param groups Group structure of which territories were descended from what population seed.
+#' @param colors A vector of colors of length equal to the number of seed populations.
 #' @keywords Plotting
 #' @export
 #
-MigrationPlot <- function(P, Data, groups=NA, colorSet=NA){
-  if(length(groups)==0){
-    groups <- Getgroups(P, Data)
+MigrationPlot <- function(P, Data, groups=NA, colors=NA){
+  if(is.na(groups)[1]){
+    groups <- GetGroups(P, Data)
   }
-  if(length(colorSet)==0){
-    colorSet <- distinctColorPalette(length(groups))
+  if(is.na(colors)[1]){
+    colors <- distinctColorPalette(length(groups))
   }
   par(mar=c(2,2,1,1), mgp=c(1.5,.5,0), bg="grey10", fg="white")
   plot(0, type="n", xlim=c(1, P$C), ylim=c(P$R,1),
        col.axis="white", font.axis=2)
-    #test <- order(connect)
-  #connect <- connect[test]
-  #Terr <- Terr[test]
-  #ColorList <- c("cadetblue1","cadetblue2","cadetblue3","cadetblue","cadetblue4",
-  #               "slateblue1","slateblue2","slateblue3","slateblue","slateblue4",
-  #               "darkorchid1","darkorchid2","darkorchid3","darkorchid","darkorchid4")
-  #ColorVector <- rep(c(rep(ColorList,length(unique(connect))%/%length(ColorList)),
-  #    ColorList[1:(length(unique(connect))%%length(ColorList))]),
-  #    times=as.vector(table(connect)))
+  
   for(i in seq_along(groups)){
     Modtest1 <- groups[[i]][,"Terr"]%%P$R
     Modtest2 <- groups[[i]][,"Connect"]%%P$R
     arrows(ceiling(groups[[i]][,"Terr"]/P$R), ifelse(Modtest1==0,P$R,Modtest1),
            ceiling(groups[[i]][,"Connect"]/P$R), ifelse(Modtest2==0,P$R,Modtest2),
-           col=colorSet[[i]], angle=15, length=.1, code=1, lwd=2)
-    #points(ceiling(Terr/P$R), ifelse((Terr)%%P$R==0,P$R,(Terr)%%P$R),
-    #       cex=.6,pch=19, col="white")
-    
+           col=colors[[i]], angle=15, length=.1, code=1, lwd=2)
   }  
 }
 
@@ -181,26 +189,35 @@ MigrationPlot <- function(P, Data, groups=NA, colorSet=NA){
 #' Shows how common each phonemes is in the simulation color coded by population.
 #' @param P A list of parameters.
 #' @param Data The Pre or Post output from an HBC simulation.
+#' @param groups Group structure of which territories were descended from what population seed.
+#' @param colors A vector of colors of length equal to the number of seed populations.
 #' @keywords Plotting
 #' @export
 #
-PhonemeFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA){
-  if(length(groups)==0){
-    groups <- Getgroups(P, Data)
+PhonemeFrequencyPlots <- function(P, Data, groups=NA, colors=NA){
+  if(is.na(groups)[1]){
+    if(P$Death || P$UpRoot){
+      groups <- GroupBySeed(P, Data)
+    }else{
+      groups <- GetGroups(P, Data)
+      for(i in seq_along(groups)){
+        groups[[i]] <- groups[[i]][,1]
+      }
+    }
   }
-  if(length(colorSet)==0){
-    colorSet <- randomColor(length(groups)) 
+  if(is.na(colors)[1]){
+    colors <- randomColor(length(groups)) 
   }
   par(mar=c(3,3,1,1))
   plot(colSums(Data$Languages), type="l", col="White",col.axis="white",
        col.lab="white", xlab="Phonemes Ordered Most to Least Common",
        ylab=paste0("Number of Populations (Total=",nrow(Data$Languages),")"))
   for(i in seq_along(groups)){
-    Sums <- colSums(Data$Languages[groups[[i]][,1],])
+    Sums <- colSums(Data$Languages[groups[[i]],])
     plot(Sums, type="l",
-         col=colorSet[i],col.axis="white",col.lab="white",
+         col=colors[i],col.axis="white",col.lab="white",
          xlab="Phonemes Ordered Most to Least Common",
-         ylab=paste0("Number of Populations (Total=",length(groups[[i]][,1]),")"))
+         ylab=paste0("Number of Populations (Total=",length(groups[[i]]),")"))
     points(which(Data$Languages[P$PopStart[i],]==1), rep(max(Sums),sum(Data$Languages[P$PopStart[i],])),
            col="White", cex=.6,pch=19)
     #PhoPerSeed[i,] <- Sums 
@@ -216,13 +233,12 @@ PhonemeFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA){
 #' @param P A list of parameters.
 #' @param Data The Pre or Post output from an HBC simulation.
 #' @param groups Group structure of which territories were descended from what population seed.
-#' @param colorSet The colors to use.
-#' @param sort Whether to sort the data from most to least frequent phoneme.
+#' @param colors A vector of colors of length equal to the number of seed populations.#' @param sort Whether to sort the data from most to least frequent phoneme.
 #' @keywords Plotting
 #' @export
 #
-PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sort=TRUE){
-  if(is.na(groups[1])){
+PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colors=NA, sort=TRUE){
+  if(is.na(groups)[1]){
     if(P$Death || P$UpRoot){
       groups <- GroupBySeed(P, Data)
     }else{
@@ -230,8 +246,8 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
     }
   }
 
-  if(is.na(colorSet[1])){
-    colorSet <- randomColor(length(groups)) 
+  if(is.na(colors)[1]){
+    colors <- randomColor(length(groups)) 
   }
   #print(colorSet)  
   if(sort){
@@ -245,9 +261,14 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
     if(P$Death || P$UpRoot){
       Choices <- Data$Languages[groups[[i]],]
     }else{
-      Data$Languages[groups[[i]][,1],]
+      Choices <- Data$Languages[groups[[i]][,1],]
     }
-    PhoPerSeed[i,] <- colSums(Choices)
+    
+    if(class(Choices) == "numeric"){
+      PhoPerSeed[i,] <- Choices
+    }else{
+      PhoPerSeed[i,] <- colSums(Choices) 
+    }
   }
   
   #print(PhoPerSeed)
@@ -256,7 +277,7 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
        xlab="Phonemes, Ordered Common to Rare", font.lab=2, cex.lab=1, font.axis=2)
   
   for(i in 1:P$nPhon){
-    rect(i-1,0,i,rev(cumsum(PhoPerSeed[,i])), col=rev(colorSet),border = NA)
+    rect(i-1,0,i,rev(cumsum(PhoPerSeed[,i])), col=rev(colors),border = NA)
   }
   
 }
@@ -266,10 +287,11 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
 #' Creates a color gradient.
 #' @param P A list of parameters.
 #' @param Data The Pre or Post output from an HBC simulation.
+#' @param colors A vector of beginning and ending colors for a gradient.
 #' @keywords Plotting
 #' @export
 #
-Getcolors <- function(P, Data, i, colors=c('coral1','coral4')){
+GetColorDistribution <- function(P, Data, i, colors=c('coral1','coral4')){
   Order <- list()
   j <- 1
   Order[[1]] <- P$PopStart[i]

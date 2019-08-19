@@ -4,14 +4,14 @@
 \alias{PopulationPlot}
 \title{Population Plot}
 \usage{
-PopulationPlot(P, seedGroups, colors)
+PopulationPlot(P, Data, groups = NA, colors = NA)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
-\item{seedGroups}{Group structure of which territories were descended from what population seed.}
+\item{groups}{Group structure of which territories were descended from what population seed.}
 
-\item{colors}{A vector of colors, one for each seed.}
+\item{colors}{A vector of colors of length equal to the number of seed populations.}
 }
 \description{
 Population Plot

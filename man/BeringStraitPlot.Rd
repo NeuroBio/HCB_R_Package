@@ -4,14 +4,14 @@
 \alias{BeringStraitPlot}
 \title{Bering Straight Plot}
 \usage{
-BeringStraitPlot(P, Data, Colors = NA)
+BeringStraitPlot(P, Data, colors = NA)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
 \item{Data}{The Pre or Post output from an HBC simulation.}
 
-\item{Colors}{A vector of colors of length equal to the number of seed populations.}
+\item{colors}{A vector of colors of length equal to the number of seed populations.}
 }
 \description{
 Creates a plot that shows the Bring strait boundaries.

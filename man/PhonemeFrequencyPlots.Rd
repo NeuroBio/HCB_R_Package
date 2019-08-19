@@ -4,12 +4,16 @@
 \alias{PhonemeFrequencyPlots}
 \title{Phoneme Frequency Plots}
 \usage{
-PhonemeFrequencyPlots(P, Data, groups = NA, colorSet = NA)
+PhonemeFrequencyPlots(P, Data, groups = NA, colors = NA)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
 \item{Data}{The Pre or Post output from an HBC simulation.}
+
+\item{groups}{Group structure of which territories were descended from what population seed.}
+
+\item{colors}{A vector of colors of length equal to the number of seed populations.}
 }
 \description{
 Shows how common each phonemes is in the simulation color coded by population.

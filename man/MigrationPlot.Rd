@@ -4,12 +4,16 @@
 \alias{MigrationPlot}
 \title{Migration Plot}
 \usage{
-MigrationPlot(P, Data, groups = NA, colorSet = NA)
+MigrationPlot(P, Data, groups = NA, colors = NA)
 }
 \arguments{
 \item{P}{A list of parameters.}
 
 \item{Data}{The Pre or Post output from an HBC simulation.}
+
+\item{groups}{Group structure of which territories were descended from what population seed.}
+
+\item{colors}{A vector of colors of length equal to the number of seed populations.}
 }
 \description{
 Shows the expansion of populations from the seed population.  Ony works when Uproot and Death are FALSE.

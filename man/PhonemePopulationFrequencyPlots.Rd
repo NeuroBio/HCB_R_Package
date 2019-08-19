@@ -4,7 +4,7 @@
 \alias{PhonemePopulationFrequencyPlots}
 \title{Phoneme Population Frequency Plots}
 \usage{
-PhonemePopulationFrequencyPlots(P, Data, groups = NA, colorSet = NA,
+PhonemePopulationFrequencyPlots(P, Data, groups = NA, colors = NA,
   sort = TRUE)
 }
 \arguments{
@@ -14,9 +14,7 @@ PhonemePopulationFrequencyPlots(P, Data, groups = NA, colorSet = NA,
 
 \item{groups}{Group structure of which territories were descended from what population seed.}
 
-\item{colorSet}{The colors to use.}
-
-\item{sort}{Whether to sort the data from most to least frequent phoneme.}
+\item{colors}{A vector of colors of length equal to the number of seed populations.#' @param sort Whether to sort the data from most to least frequent phoneme.}
 }
 \description{
 Shows how common each phonemes is in the simulation color coded by population.
