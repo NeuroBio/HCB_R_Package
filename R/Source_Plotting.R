@@ -204,7 +204,7 @@ PhonemeFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA){
     points(which(Data$Languages[P$PopStart[i],]==1), rep(max(Sums),sum(Data$Languages[P$PopStart[i],])),
            col="White", cex=.6,pch=19)
     #PhoPerSeed[i,] <- Sums 
-    print(summary(rowSums(Data$Languages[groups[[i]][,1],])))
+    #print(summary(rowSums(Data$Languages[groups[[i]][,1],])))
     #Sums <- colSums(Data$Languages[groups[[i]][,1],])
     #segments(1:(728-1), Sums[1:(728-1)], 2:(728), Sums[2:(728)],col=colorSet[i])
   }  
@@ -233,11 +233,11 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
   if(is.na(colorSet[1])){
     colorSet <- randomColor(length(groups)) 
   }
-  print(colorSet)  
+  #print(colorSet)  
   if(sort){
     Data$Languages <- Data$Languages[,order(colSums(Data$Languages), decreasing = TRUE)]
   }
-  print(Data$Languages[1:10, 1:10])
+  #print(Data$Languages[1:10, 1:10])
   
   PhoPerSeed <- matrix(0,nrow=length(groups),ncol=P$nPhon)
   
@@ -250,7 +250,7 @@ PhonemePopulationFrequencyPlots <- function(P, Data, groups=NA, colorSet=NA, sor
     PhoPerSeed[i,] <- colSums(Choices)
   }
   
-  print(PhoPerSeed)
+  #print(PhoPerSeed)
   plot(0,type = "n", xlim=c(0,P$nPhon), ylim=c(0,max(colSums(Data$Languages))),
        col.axis="white",col.lab="white", ylab="Number of populations",
        xlab="Phonemes, Ordered Common to Rare", font.lab=2, cex.lab=1, font.axis=2)

@@ -23,7 +23,9 @@ Migration <- function(P, S, repeats){
     }
     
     #allow for growth and migrate
-    S$Populations$SizeCurrent <- PopulationGrowth(P, S$Populations$SizeCurrent, which(S$OccupiedVacant))
+    GrowthList <- PopulationGrowth(P, S$Populations$SizeCurrent, which(S$OccupiedVacant))
+    S$Populations$SizeCurrent <- GrowthList$Size
+    S$OccuiedVacant <- GrowthList$Occupied
     M <- GetImmigrants(P, which(S$OccupiedVacant), S$Local, S$Populations)
     if(is.null(M)){next()}#no immigrants
     
@@ -38,13 +40,27 @@ Migration <- function(P, S, repeats){
       S$Languages[M$NewTerr,] <- t(sapply(1:length(M$NewTerr), function(x)
         MakeLanguage(P, S$PhonemeProbab, S$PhonemeRelatedness,
                      S$Languages[M$SourcePop[x],],
-                     S$Populations$SizeCurrent[M$SourcePop[x]])))
+                     S$Populations$SizeCurrent[M$SourcePop[x]], P$MutRat)))
+    }
+    
+    #allow for mutatiosn in stationary populations
+    Stationary <- which(S$OccupiedVacant)
+    Stationary <- Stationary[-which(Stationary %in% M$UpRoot)]
+    if(length(Stationary)>0){
+      S$Languages[Stationary,] <- t(sapply(Stationary, function(x)
+        MakeLanguage(P, S$PhonemeProbab, S$PhonemeRelatedness,
+                     S$Languages[x,],
+                     S$Populations$SizeCurrent[x], P$StateMRate)))      
     }
     
     #Move uprooted populations 
     if(length(M$UpRoot) > 0){
       S <- UpdateStructuresMove(S, M$UNewTerr, M$UpRoot)
       S <- UpdateStructuresRemove(S, M$UpRoot)
+      S$Languages[M$UpRoot,] <- t(sapply(M$UpRoot, function(x)
+        MakeLanguage(P, S$PhonemeProbab, S$PhonemeRelatedness,
+                     S$Languages[x,],
+                     S$Populations$SizeCurrent[x], P$UpRootMRate)))
     }
     
     #update for next round

@@ -26,7 +26,16 @@ PopulationGrowth <- function(P, populationSizes, occupied){
     }
   }
   
-  return(populationSizes)
+  DiedOut <- which(populationSizes[occupied] < 1)
+  if(length(DiedOut) > 0){
+    if(!P$Death){
+      populationSizes[occupied[DiedOut]] <- 1
+    }else{
+      occupied[DiedOut] <- FALSE
+    }
+  }
+  
+  return(list(Size=populationSizes, Occupied=occupied))
 }
 
 #' Emigrate

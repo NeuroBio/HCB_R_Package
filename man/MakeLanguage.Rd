@@ -4,7 +4,7 @@
 \alias{MakeLanguage}
 \title{Make Language}
 \usage{
-MakeLanguage(P, phonemeProbab, phonemeRelatedness, language, popSize)
+MakeLanguage(P, phonemeProbab, phonemeRelatedness, language, popSize, rate)
 }
 \arguments{
 \item{P}{A list of parameters.}
@@ -16,6 +16,8 @@ MakeLanguage(P, phonemeProbab, phonemeRelatedness, language, popSize)
 \item{language}{The parent langauge to mutate into a new language.}
 
 \item{popSize}{The number of individuals in the parent poultaion.}
+
+\item{rate}{The mutation rate.}
 }
 \description{
 Copies and mutates the parent's langauge to create a new language for a founder party.

@@ -7,10 +7,11 @@
 #' @param phonemeRelatedness The phoneme relatedness list.
 #' @param language The parent langauge to mutate into a new language.
 #' @param popSize The number of individuals in the parent poultaion.
+#' @param rate The mutation rate.
 #' @keywords Language
 #' @export
 #'
-MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize){
+MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize, rate){
   #get the number of mutations per langauge
   #round fractions based on chance to get a whole number
   #Test whether to add or lose based on number of existing phonemes
@@ -23,10 +24,10 @@ MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize
     #people use outside of acedmeia, so I can get a job, even though I was discouraged from
     #doing so, because learning a strongly typed compiled language with limited documentation
     #is hard when the only languages you are fluent in are R and English.
-    MutationChance <- P$MutRat*(959.6/((popSize-P$PopSizeInfo[2]+1)+1015))
+    MutationChance <- rate*(959.6/((popSize-P$PopSizeInfo[2]+1)+1015))
       #(popSize-P$PopSizeInfo[2]+1)^(-1/3) 
   }else{
-    MutationChance <- P$MutRat 
+    MutationChance <- rate 
   }
   
   NumMutations <- sum(ifelse(runif(length(ExistingPhonemes)) < MutationChance, 1, 0))
@@ -60,6 +61,7 @@ MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize
   }else{NewLanguage <- language}
   return(NewLanguage)
 }
+
 
 #' Update Existing Phonemes
 #'

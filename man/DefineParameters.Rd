@@ -16,8 +16,8 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
   Bias = TRUE, Steps = 1, HorizontalLocal = TRUE,
   NumberRandomHorizontal = 8, UpRoot = TRUE, Death = TRUE,
   Bering = FALSE, BeringLength = 20, MigrationSimSteps = 300,
-  BasalMutationRate = 0.01, HorizontalSimSteps = 400, Waves = FALSE,
-  Seed = NA)
+  StationaryMutationRate = 0.01, UpRootMutationRate = 0.01,
+  HorizontalSimSteps = 400, Waves = FALSE, Seed = NA)
 }
 \arguments{
 \item{Rows}{The number of rows in the world matrix.}
@@ -78,7 +78,9 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
 
 \item{MigrationSimSteps}{The number of time steps to run each wave of migration.}
 
-\item{BasalMutationRate}{The rate at which phonemes evolve in stationary populations during migration.}
+\item{StationaryMutationRate}{The rate at which phonemes evolve in stationary populations during migration.}
+
+\item{UpRootMutationRate}{The rate at which phonemes evolve in populations that move as a unit during migration.}
 
 \item{HorizontalSimSteps}{The number of time steps to spend on horizontal transfer.}
 

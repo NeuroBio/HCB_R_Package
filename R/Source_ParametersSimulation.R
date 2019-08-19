@@ -32,7 +32,8 @@
 #' @param Bering Whether to employ barriers that mimick the Bering Strait and Americas.
 #' @param MigrationSimSteps The number of time steps to run each wave of migration.
 #' @param BeringLength An integer of length 0 to 24 that degines how long the berring straight is
-#' @param BasalMutationRate The rate at which phonemes evolve in stationary populations during migration.
+#' @param StationaryMutationRate The rate at which phonemes evolve in stationary populations during migration.
+#' @param UpRootMutationRate The rate at which phonemes evolve in populations that move as a unit during migration.
 #' @param Waves Whether migration occurs in waves or all seed populations are added at the same time.  If TRUE, there is one wave for each seed population.
 #' @param Seed Sets a seed for reproducibility if an integer instead of NA.
 #' @keywords SimParam
@@ -48,7 +49,8 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                              MutationTypeChance=rep(1/5,5), HorizontalRate=.1, Bias=TRUE,
                              Steps=1, HorizontalLocal=TRUE, NumberRandomHorizontal=8,
                              UpRoot=TRUE, Death=TRUE, Bering=FALSE, BeringLength=20,
-                             MigrationSimSteps=300, BasalMutationRate=.01,
+                             MigrationSimSteps=300, StationaryMutationRate=.01,
+                             UpRootMutationRate=.01,
                              HorizontalSimSteps=400, Waves=FALSE, Seed=NA){
   if(BeringLength > 24 || BeringLength < 0 || BeringLength %% 1 != 0){
     stop("BeringLength must be an integer between 0 and 24.")
@@ -74,7 +76,8 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                  Bar = Barriers, BarLen=BarrierLength, BarBre=BarrierBreaks,
                  MutTChan=MutationTypeChance, Steps=Steps, HSims=HorizontalSimSteps,
                  UpRoot=UpRoot, Death=Death, MSims=MigrationSimSteps, Bering=Bering,
-                 Waves=Waves, BSLength=BeringLength, BaseMRate=BasalMutationRate,
+                 Waves=Waves, BSLength=BeringLength, StateMRate=StationaryMutationRate,
+                 UpRootMRate=UpRootMutationRate,
                  Seed=Seed)
   return(Params)
 }
