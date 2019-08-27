@@ -163,7 +163,7 @@ UpdateStructuresRemove <- function(S, remove){
     S$Populations[remove,] <- ResetPopulation()
   }
   S$Languages[remove,] <- matrix(0, ncol=ncol(S$Languages), nrow=length(remove))
-  return(S)
+  return(S) 
 }
 
 #' Get Immigrants
