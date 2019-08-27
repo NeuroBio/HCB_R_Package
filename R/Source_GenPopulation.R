@@ -22,7 +22,7 @@ PopulationGrowth <- function(P, populationSizes, occupied){
       populationSizes[occupied] <- populationSizes[occupied]+Change
     }else{ #percentage growth
       Change <- runif(length(occupied), max=P$GrwMax, min=P$GrwMin)
-      populationSizes[occupied] <- populationSizes[occupied]*(1+Change)
+      populationSizes[occupied] <- populationSizes[occupied] + populationSizes[occupied]*(1+Change)
     }
   }
   
