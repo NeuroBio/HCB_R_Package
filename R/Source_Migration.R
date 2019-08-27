@@ -10,6 +10,7 @@
 Migration <- function(P, S, repeats){
   n <- 0
   repeat{
+    print(n)
     if(n == repeats){#if all runs complete
       Final <- list(S$Populations, S$Languages, S$OccupiedVacant)
       break()
@@ -19,7 +20,10 @@ Migration <- function(P, S, repeats){
       Dead <- Extinction(S$Populations, S$OccupiedVacant)
       if(length(Dead) > 0){
         S <- UpdateStructuresRemove(S, Dead)
-      }  
+      }
+      if(length(which(S$OccupiedVacant))){
+        stop("Everyone is dead.  Revisit your growth parameters.")
+      }
     }
     
     #allow for growth and migrate
