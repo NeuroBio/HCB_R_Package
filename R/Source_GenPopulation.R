@@ -52,6 +52,7 @@ Emigrate <- function(P, occupied, local, populations){
   #get the travelers
   Travelers <- occupied[which(runif(length(occupied))<P$ChExp)]
   if(length(Travelers)==0){
+    print("No travelors this timestep.")
     return(NULL)
   }
 
@@ -70,6 +71,9 @@ Emigrate <- function(P, occupied, local, populations){
     LocalTerritory <- local[[Travelers[i]]]
     OpenTerritory <- which(is.na(populations[LocalTerritory, 1]))
     NewTerr[i] <- GetTerritory(LocalTerritory, OpenTerritory)
+    if(is.na(NewTerr[i])){
+      print("No new territory for this travelor!")
+    }
   }
   
   #Only allow one pop to enter a territory

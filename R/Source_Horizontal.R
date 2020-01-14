@@ -14,14 +14,14 @@ HoritontalTransferRepeater <- function(P, S, repeats){
   if(any(rowSums(S$Languages) < P$MinVow+P$MinCon)){
     stop("The issue is before the horizontal code.")
   }
-    for(i in 1:repeats){
-      Transfers <- PopulationPool[which(runif(length(PopulationPool))<P$HorzRate)]
-      if(length(Transfers) > 0){
-        S$Languages[Transfers,] <- t(sapply(1:length(Transfers),
-                                            function(x)
-                                              HorizontalTransfer(P, S$Languages,S$Local,
-                                                                 S$PhonemeRelatedness,
-                                                                 S$PhonemeProbab, Transfers[x]) ))
+  for(i in 1:repeats){
+    Transfers <- PopulationPool[which(runif(length(PopulationPool))<P$HorzRate)]
+    if(length(Transfers) > 0){
+      S$Languages[Transfers,] <- t(sapply(1:length(Transfers),
+                                          function(x)
+                                            HorizontalTransfer(P, S$Languages,S$Local,
+                                                               S$PhonemeRelatedness,
+                                                               S$PhonemeProbab, Transfers[x]) ))
     }
   }
   return(S)
