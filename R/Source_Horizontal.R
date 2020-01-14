@@ -121,13 +121,16 @@ AddShift <- function(P, targetLanguage, languages, local, phonemeRelatedness, in
 Lose <- function(P, targetLanguage, phonemeProbab){
 
   Phonemes <- which(targetLanguage == 1)
+  if(length(Phonemes) < P$MinVow+P$MinCon){
+    stop("The issue is deeper than you hoped. :'<")
+  }
   if(length(Phonemes) == P$MinVow+P$MinCon){#minned
     return(targetLanguage)
   }
   #which can be lost; vowels cons or both?
-  if(length(Phonemes[which(Phonemes<=P$nConse)]) == P$MinCon){#if min conned
+  if(length(which(Phonemes <= P$nConse)) == P$MinCon){#if min conned
     index <- which(Phonemes > P$nConse)
-  }else if(length(Phonemes[which(Phonemes>P$nConse)]) == P$MinVow){#if min voweled
+  }else if(length(which(Phonemes > P$nConse)) == P$MinVow){#if min voweled
     index <- which(Phonemes <= P$nConse)
   }else{index <- 1:length(Phonemes)}
 
