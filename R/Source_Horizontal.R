@@ -11,6 +11,9 @@
 #'
 HoritontalTransferRepeater <- function(P, S, repeats){
   PopulationPool <- which(S$OccupiedVacant)
+  if(any(rowSums(S$Languages) < P$MinVow+P$MinCon)){
+    stop("The issue is before the horizontal code.")
+  }
     for(i in 1:repeats){
       Transfers <- PopulationPool[which(runif(length(PopulationPool))<P$HorzRate)]
       if(length(Transfers) > 0){
@@ -122,7 +125,7 @@ Lose <- function(P, targetLanguage, phonemeProbab){
 
   Phonemes <- which(targetLanguage == 1)
   if(length(Phonemes) < P$MinVow+P$MinCon){
-    stop("The issue is deeper than you hoped. :'<")
+    stop("The issue is in the horizontal code.")
   }
   if(length(Phonemes) == P$MinVow+P$MinCon){#minned
     return(targetLanguage)
