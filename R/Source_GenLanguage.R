@@ -73,7 +73,6 @@ MakeLanguage <- function(P, phonemeProbab, phonemeRelatedness, language, popSize
 #' @export
 #'
 UpdateExistingPhonemes<-function(existingPhonemes, newMut, index){
-  #print(newMut)
   if(newMut[1, index]==0){
     existingPhonemes <- existingPhonemes[-which(existingPhonemes == newMut[2,1])] 
   }else{
@@ -117,7 +116,9 @@ GetAMutation <- function(P, phonemes, phonemeProbab, phonemeRelatedness, gain){
   }
   
   if(type==1){#Add
-    if(length((1:P$nPhon)[-phonemes]) == 1){return((1:P$nPhon)[-phonemes])
+    if(length((1:P$nPhon)[-phonemes]) == 1){
+      #print(rbind(1, (1:P$nPhon)[-phonemes]))
+      return(rbind(1, (1:P$nPhon)[-phonemes]))
     }else{return(rbind(1,sample((1:P$nPhon)[-phonemes],1, prob=phonemeProbab[-phonemes])))}
   }
   
@@ -129,7 +130,7 @@ GetAMutation <- function(P, phonemes, phonemeProbab, phonemeRelatedness, gain){
       Ind <- which(phonemes <= P$nConse)
     }else{Ind <- 1:length(phonemes)}
     
-    if(length(phonemes[Ind]) == 1){return(phonemes[Ind])
+    if(length(phonemes[Ind]) == 1){return(rbind(0, phonemes[Ind]))
     }else{return(rbind(0,sample(phonemes[Ind],1,prob=1-phonemeProbab[phonemes[Ind]])))}
   }
   

@@ -11,10 +11,11 @@
 #'
 HoritontalTransferRepeater <- function(P, S, repeats){
   PopulationPool <- which(S$OccupiedVacant)
-  if(any(rowSums(S$Languages) < P$MinVow+P$MinCon)){
-    stop("The issue is before the horizontal code.")
-  }
-  for(i in 1:repeats){
+    if(any(rowSums(S$Languages[PopulationPool,]) < 12)){
+      print(rowSums(S$Languages[PopulationPool,]))
+      stop("cry harder")
+    }
+    for(i in 1:repeats){
     Transfers <- PopulationPool[which(runif(length(PopulationPool))<P$HorzRate)]
     if(length(Transfers) > 0){
       S$Languages[Transfers,] <- t(sapply(1:length(Transfers),
@@ -23,6 +24,10 @@ HoritontalTransferRepeater <- function(P, S, repeats){
                                                                S$PhonemeRelatedness,
                                                                S$PhonemeProbab, Transfers[x]) ))
     }
+    }
+  if(any(rowSums(S$Languages[PopulationPool,]) < 12)){
+    print(rowSums(S$Languages[PopulationPool,]))
+    stop("cry less harder")
   }
   return(S)
 }
@@ -80,7 +85,7 @@ AddShift <- function(P, targetLanguage, languages, local, phonemeRelatedness, in
   if(length(New)==0){
     return(targetLanguage)
   }else if(length(New)==1){
-    Chosen <- New
+    Chosen <- LocalSyls[New]
   }else{
     Chosen <- sample(LocalSyls[New],1,prob=SylProb[LocalSyls[New]]) 
   }
@@ -103,7 +108,7 @@ AddShift <- function(P, targetLanguage, languages, local, phonemeRelatedness, in
   }
   
   
-  #Add  
+  #Add
   if(sum(targetLanguage)==P$AvePho[3]){#maxed out
     return(targetLanguage)
   }
@@ -122,11 +127,7 @@ AddShift <- function(P, targetLanguage, languages, local, phonemeRelatedness, in
 #' @export
 #'
 Lose <- function(P, targetLanguage, phonemeProbab){
-
   Phonemes <- which(targetLanguage == 1)
-  if(length(Phonemes) < P$MinVow+P$MinCon){
-    stop("The issue is in the horizontal code.")
-  }
   if(length(Phonemes) == P$MinVow+P$MinCon){#minned
     return(targetLanguage)
   }
@@ -147,7 +148,7 @@ Lose <- function(P, targetLanguage, phonemeProbab){
     }
     
     targetLanguage[Change] <- 0
-  }else{stop("Someone has gone Terribly, Terribly WRONG and there is a bug.")}
+  }else{stop("Someone has gone Terribly, Terribly WRONG and there is a bug.  Last time it was because phonemes were disappearing below the minimum phoneme value")}
   return(targetLanguage)
 }
 
