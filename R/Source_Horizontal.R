@@ -11,10 +11,6 @@
 #'
 HoritontalTransferRepeater <- function(P, S, repeats){
   PopulationPool <- which(S$OccupiedVacant)
-    if(any(rowSums(S$Languages[PopulationPool,]) < 12)){
-      print(rowSums(S$Languages[PopulationPool,]))
-      stop("cry harder")
-    }
     for(i in 1:repeats){
     Transfers <- PopulationPool[which(runif(length(PopulationPool))<P$HorzRate)]
     if(length(Transfers) > 0){
@@ -25,10 +21,7 @@ HoritontalTransferRepeater <- function(P, S, repeats){
                                                                S$PhonemeProbab, Transfers[x]) ))
     }
     }
-  if(any(rowSums(S$Languages[PopulationPool,]) < 12)){
-    print(rowSums(S$Languages[PopulationPool,]))
-    stop("cry less harder")
-  }
+  
   return(S)
 }
 
