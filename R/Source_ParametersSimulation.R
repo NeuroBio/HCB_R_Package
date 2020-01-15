@@ -134,13 +134,15 @@ HCBAlternatorSimmulation <- function(P){
       print(paste0("Wave ", i-1, " Completed"))
     }
   }
-  
+
   S <- Alternator(P, S, P$MSims)
+
   print("Migration Completed")
   if(P$HSims > 0){
       Post <- HoritontalTransferRepeater(P, S, P$HSims)
       print("Horizontal Transfer Finished")
   }
+  print(S$Local[[1]])
   return(list(Alternated=S))
 }
 

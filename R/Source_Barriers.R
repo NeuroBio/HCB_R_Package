@@ -50,19 +50,19 @@ AddBeringStrait <- function(P, firstStep){
   #NAmericanLowerEntry <- NAmericanlowerright - 5
   #NAmericanUpperright <- NAmericanLowerEntry%/%P$R*P$R+1
   
-  for(i in Pos$AsiaLowerRight:Pos$AsiaUpperRight ){
+  for(i in Pos$AsiaLowerRight:Pos$AsiaUpperRight){
     firstStep <- RemoveVerticalConnections(P$R, i, firstStep)
   }
   for(i in seq(Pos$AsiaUpperRight,Pos$AsiaBeringCorner, by=-P$R)-1){
     firstStep <- RemoveHorizontalConnections(P$R, i, firstStep)
   }
-  for(i in Pos$AsiaBeringCorner:Pos$BeringNAmericaCorner ){
+  for(i in Pos$AsiaBeringCorner:Pos$BeringNAmericaCorner){
     firstStep <- RemoveVerticalConnections(P$R, i, firstStep)
   }
-  for(i in seq(Pos$AsiaUpperRight, Pos$NAmericanLowerRight, by=P$R)-1){
+  for(i in seq(Pos$AsiaUpperRight+P$R, Pos$NAmericanLowerRight, by=P$R)-1){
     firstStep <- RemoveHorizontalConnections(P$R, i, firstStep)
   }
-  for(i in Pos$NAmericanLowerEntry:Pos$NAmericanUpperRight ){
+  for(i in Pos$NAmericanLowerEntry:Pos$NAmericanUpperRight){
     firstStep <- RemoveVerticalConnections(P$R, i, firstStep)
   }
   return(firstStep)
