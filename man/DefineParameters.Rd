@@ -17,7 +17,8 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
   NumberRandomHorizontal = 8, UpRoot = TRUE, Death = TRUE,
   Bering = FALSE, BeringLength = 20, MigrationSimSteps = 300,
   StationaryMutationRate = 0.01, UpRootMutationRate = 0.01,
-  HorizontalSimSteps = 400, Waves = FALSE, Seed = NA)
+  HorizontalSimSteps = 400, Waves = FALSE, Verbose = FALSE,
+  Seed = NA)
 }
 \arguments{
 \item{Rows}{The number of rows in the world matrix.}
@@ -85,6 +86,8 @@ DefineParameters(Rows = 40, Cols = 50, ChanceExpand = 0.8,
 \item{HorizontalSimSteps}{The number of time steps to spend on horizontal transfer.}
 
 \item{Waves}{Whether migration occurs in waves or all seed populations are added at the same time.  If TRUE, there is one wave for each seed population.}
+
+\item{Verbose}{whether to print the population size.}
 
 \item{Seed}{Sets a seed for reproducibility if an integer instead of NA.}
 

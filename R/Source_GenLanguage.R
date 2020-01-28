@@ -115,12 +115,14 @@ GetAMutation <- function(P, phonemes, phonemeProbab, phonemeRelatedness, gain){
     if(type %in% c(1,3,5)){return(NULL)}#too many phonemes, cannot add more or shift
   }
   
+  
   if(type==1){#Add
     if(length((1:P$nPhon)[-phonemes]) == 1){
       #print(rbind(1, (1:P$nPhon)[-phonemes]))
       return(rbind(1, (1:P$nPhon)[-phonemes]))
     }else{return(rbind(1,sample((1:P$nPhon)[-phonemes],1, prob=phonemeProbab[-phonemes])))}
   }
+  
   
   if(type==2){#Loss
     #figure out what is available for loss
@@ -134,12 +136,14 @@ GetAMutation <- function(P, phonemes, phonemeProbab, phonemeRelatedness, gain){
     }else{return(rbind(0,sample(phonemes[Ind],1,prob=1-phonemeProbab[phonemes[Ind]])))}
   }
   
+  
   if(type==3){#Split
     Split <- GetASplitShiftJoinMut(phonemes, phonemeRelatedness, NULL, "Split")
     if(length(Split)!=0){
       return(rbind(1,Split)) 
     }else{return(NULL)}
   }
+  
   
   if(type==4){#Join
     #figure out what is available for loss
@@ -153,6 +157,7 @@ GetAMutation <- function(P, phonemes, phonemeProbab, phonemeRelatedness, gain){
       return(rbind(0,Join)) 
     }else{return(NULL)}
   }
+  
   
   if(type==5){#shift
     Shift <- GetASplitShiftJoinMut(phonemes, phonemeRelatedness, NULL, "Shift")

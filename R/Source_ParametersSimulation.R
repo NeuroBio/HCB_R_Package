@@ -36,6 +36,7 @@
 #' @param UpRootMutationRate The rate at which phonemes evolve in populations that move as a unit during migration.
 #' @param Waves Whether migration occurs in waves or all seed populations are added at the same time.  If TRUE, there is one wave for each seed population.
 #' @param Seed Sets a seed for reproducibility if an integer instead of NA.
+#' @param Verbose whether to print the population size.
 #' @keywords SimParam
 #' @export
 DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartIndex=c(1,2),
@@ -51,7 +52,7 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                              UpRoot=TRUE, Death=TRUE, Bering=FALSE, BeringLength=20,
                              MigrationSimSteps=300, StationaryMutationRate=.01,
                              UpRootMutationRate=.01,
-                             HorizontalSimSteps=400, Waves=FALSE, Seed=NA){
+                             HorizontalSimSteps=400, Waves=FALSE, Verbose=FALSE, Seed=NA){
   if(BeringLength > 24 || BeringLength < 0 || BeringLength %% 1 != 0){
     stop("BeringLength must be an integer between 0 and 24.")
   }
@@ -77,7 +78,7 @@ DefineParameters <- function(Rows=40, Cols=50, ChanceExpand=.8, PopulationStartI
                  MutTChan=MutationTypeChance, Steps=Steps, HSims=HorizontalSimSteps,
                  UpRoot=UpRoot, Death=Death, MSims=MigrationSimSteps, Bering=Bering,
                  Waves=Waves, BSLength=BeringLength, StateMRate=StationaryMutationRate,
-                 UpRootMRate=UpRootMutationRate,
+                 UpRootMRate=UpRootMutationRate, Verbose=Verbose,
                  Seed=Seed)
   return(Params)
 }

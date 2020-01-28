@@ -20,7 +20,9 @@ Migration <- function(P, S, repeats){
       if(length(Dead) > 0){
         S <- UpdateStructuresRemove(S, Dead)
       }
-      print(length(which(S$OccupiedVacant)))
+      if(P$Verbose){#give the number of populations
+        print(length(which(S$OccupiedVacant)))
+      }
       if(length(which(S$OccupiedVacant)) == 0){
         stop("Everyone is dead.  Revisit your growth parameters.")
       }
