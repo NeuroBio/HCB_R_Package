@@ -143,7 +143,6 @@ HCBAlternatorSimmulation <- function(P){
       Post <- HoritontalTransferRepeater(P, S, P$HSims)
       print("Horizontal Transfer Finished")
   }
-  print(S$Local[[1]])
   return(list(Alternated=S))
 }
 
