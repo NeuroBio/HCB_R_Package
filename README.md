@@ -22,7 +22,8 @@ params = DefineParameters()
 
 4) run the following simulation with the parameters and graph:
 ```
-# completes a migration stage for x time steps and then allows for horizontal transfer stage for x time steps
+# completes a migration stage for x time steps and then allows
+# for horizontal transfer stage for x time steps
 data = HCBSimmulation(Params)
 BeringStraitPlot(Parameters, data$Pre) # before horizontal Transfer
 BeringStraitPlot(Parameters, data$Post) # after horizontal Transfer
