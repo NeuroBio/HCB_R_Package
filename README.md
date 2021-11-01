@@ -7,7 +7,7 @@ This agent-based model attempts to simulate the population of the Americas throu
 1) Install the HCB package (requires RTools).
 ```
 library(devtools)
-install_github('NeuroBio/HCB_R_Package')
+install_github('NeuroBio/HCB_R_Package/Human_Cultural_Boundaries')
 ```
 
 2) Add the package to your working environment.
