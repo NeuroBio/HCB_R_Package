@@ -7,7 +7,7 @@ This agent-based model attempts to simulate the population of the Americas throu
 1) Install the HCB package (requires RTools).
 ```
 library(devtools)
-install_github('NeuroBio/HCB_R_Package')
+install_github('NeuroBio/HCB_R_Package/Human_Cultural_Boundaries')
 ```
 
 2) Add the package to your working environment.
@@ -30,7 +30,7 @@ BeringStraitPlot(Parameters, data$Post) # after horizontal Transfer
 ```
 
 ## Further Help
-See [the manual](manual.pdf) for an overview of how each function works and the arguments they take.
+See [the manual](Human_Cultural_Boundaries/manual.pdf) for an overview of how each function works and the arguments they take.
 
 There are two simulation functions, `HCBSimmulation()` as described above, and `HCBAlternatorSimmulation()`, which alternates between a
 migration phase and a horizontal transfer phase each timestep.  A full description of all parameters is listed and explained in `DefineParameters()`.
