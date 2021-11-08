@@ -29,6 +29,9 @@ BeringStraitPlot(Parameters, data$Pre) # before horizontal Transfer
 BeringStraitPlot(Parameters, data$Post) # after horizontal Transfer
 ```
 
+## Example Output
+![example output](https://github.com/NeuroBio/HCB_R_Package/blob/master/Human_Cultural_Boundaries/preview%20image/example%20output.png)
+
 ## Further Help
 See [the manual](Human_Cultural_Boundaries/manual.pdf) for an overview of how each function works and the arguments they take.
 
